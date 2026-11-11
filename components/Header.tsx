@@ -54,6 +54,12 @@ export default function Header() {
         >
           {t.navDiscover}
         </Link>
+        <Link
+          href="/receiver"
+          className={`rounded-full border px-3 py-2 text-sm ${pathname === "/receiver" ? "border-c30442a bg-c30442a text-white" : ""}`}
+        >
+          {t.navReceiver}
+        </Link>
         {authReady && token ? (
           <>
             {user?.role === "business" ? (

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 
+import DonationOfferPanel from "@/components/donations/DonationOfferPanel";
 import LotTimeline from "@/components/LotTimeline";
 import ScenarioSimulator from "@/components/ScenarioSimulator";
 import { api, ApiError, type RescuePlan } from "@/lib/api";
@@ -55,6 +56,7 @@ export default function RescuePlanPanel({ shopId, lots, t, locale }: Props) {
   const [errorKey, setErrorKey] = useState<string | null>(null);
   const [explanations, setExplanations] = useState<Record<number, string>>({});
   const [simulatingPlanId, setSimulatingPlanId] = useState<number | null>(null);
+  const [donationPlanId, setDonationPlanId] = useState<number | null>(null);
   const [timelinePlanId, setTimelinePlanId] = useState<number | null>(null);
   const number = new Intl.NumberFormat(locale === "es" ? "es-CO" : "en-US", {
     maximumFractionDigits: 1,
@@ -237,6 +239,16 @@ export default function RescuePlanPanel({ shopId, lots, t, locale }: Props) {
                       {simulatingPlanId === plan.id ? t.simHide : t.simCompare}
                     </button>
                   ) : null}
+                  {plan.action === "prepare_donation_offer" && plan.status !== "rejected" ? (
+                    <button
+                      type="button"
+                      aria-expanded={donationPlanId === plan.id}
+                      onClick={() => setDonationPlanId(donationPlanId === plan.id ? null : plan.id)}
+                      className={SECONDARY_BUTTON}
+                    >
+                      {donationPlanId === plan.id ? t.donationHide : t.donationShow}
+                    </button>
+                  ) : null}
                   <button
                     type="button"
                     aria-expanded={timelinePlanId === plan.id}
@@ -260,6 +272,14 @@ export default function RescuePlanPanel({ shopId, lots, t, locale }: Props) {
                     planId={plan.id}
                     availableQuantity={plan.available_quantity}
                     defaultDonationUnits={Math.floor(plan.surplus_units ?? 0)}
+                    t={t}
+                    locale={locale}
+                  />
+                ) : null}
+                {donationPlanId === plan.id ? (
+                  <DonationOfferPanel
+                    lotId={plan.lot_id}
+                    defaultQuantity={Math.floor(plan.surplus_units ?? 0)}
                     t={t}
                     locale={locale}
                   />

@@ -143,6 +143,64 @@ export type DiscoveryParams = {
   category?: string;
 };
 
+const RECEIVER_EXCLUSIONS = [
+  "category_not_accepted",
+  "over_capacity",
+  "needs_refrigeration",
+  "too_far",
+  "closed_before_pickup",
+] as const;
+
+const ReceiverSchema = z.object({
+  id: z.number().int(),
+  name: z.string(),
+  latitude: z.number(),
+  longitude: z.number(),
+  accepted_categories: z.array(z.string()),
+  max_quantity: z.number().int(),
+  can_store_refrigerated: z.boolean(),
+  open_from: z.string(),
+  open_until: z.string(),
+  utc_offset_minutes: z.number().int(),
+});
+
+const ReceiverAssessmentSchema = z.object({
+  receiver: ReceiverSchema,
+  distance_km: z.number(),
+  travel_minutes: z.number().int(),
+  recent_accepted: z.number().int(),
+  reasons: z.array(z.enum(RECEIVER_EXCLUSIONS)),
+});
+
+const ReceiverCandidatesSchema = z.object({
+  approximate: z.literal(true),
+  compatible: z.array(ReceiverAssessmentSchema),
+  excluded: z.array(ReceiverAssessmentSchema),
+});
+
+const DonationOfferSchema = z.object({
+  id: z.number().int(),
+  lot_id: z.number().int(),
+  lot_title: z.string(),
+  category: z.string(),
+  shop_name: z.string(),
+  receiver_name: z.string(),
+  quantity: z.number().int(),
+  status: z.enum(["offered", "accepted", "declined", "delivered"]),
+  message: z.string(),
+  closes_at: z.string(),
+  created_at: z.string(),
+  decided_at: z.string().nullable(),
+  delivered_at: z.string().nullable(),
+});
+
+export type ReceiverExclusion = (typeof RECEIVER_EXCLUSIONS)[number];
+export type Receiver = z.infer<typeof ReceiverSchema>;
+export type ReceiverAssessment = z.infer<typeof ReceiverAssessmentSchema>;
+export type ReceiverCandidates = z.infer<typeof ReceiverCandidatesSchema>;
+export type DonationOffer = z.infer<typeof DonationOfferSchema>;
+export type ReceiverInput = Omit<Receiver, "id">;
+
 export type User = {
   id: number;
   email: string;
@@ -404,6 +462,48 @@ export const api = {
         method: "POST",
         body: JSON.stringify({ text }),
       }),
+    ),
+  registerReceiver: async (input: ReceiverInput) =>
+    ReceiverSchema.parse(
+      await request<unknown>("/receivers", { method: "POST", body: JSON.stringify(input) }),
+    ),
+  myReceiver: async () => ReceiverSchema.parse(await request<unknown>("/receivers/me")),
+  myReceiverOffers: async () =>
+    DonationOfferSchema.array().parse(await request<unknown>("/receivers/me/offers")),
+  donationCandidates: async (lotId: number, quantity: number) =>
+    ReceiverCandidatesSchema.parse(
+      await request<unknown>(`/lots/${lotId}/donation-candidates?quantity=${quantity}`),
+    ),
+  draftDonationMessage: async (lotId: number, receiverId: number, language: string) =>
+    z.object({ text: z.string() }).parse(
+      await request<unknown>(`/lots/${lotId}/donation-offers/draft?language=${language}`, {
+        method: "POST",
+        body: JSON.stringify({ receiver_id: receiverId }),
+      }),
+    ),
+  createDonationOffer: async (
+    lotId: number,
+    input: { receiverId: number; quantity: number; message: string },
+  ) =>
+    DonationOfferSchema.parse(
+      await request<unknown>(`/lots/${lotId}/donation-offers`, {
+        method: "POST",
+        body: JSON.stringify({
+          receiver_id: input.receiverId,
+          quantity: input.quantity,
+          message: input.message,
+        }),
+      }),
+    ),
+  lotDonationOffers: async (lotId: number) =>
+    DonationOfferSchema.array().parse(await request<unknown>(`/lots/${lotId}/donation-offers`)),
+  answerDonationOffer: async (offerId: number, action: "accept" | "decline") =>
+    DonationOfferSchema.parse(
+      await request<unknown>(`/donation-offers/${offerId}/${action}`, { method: "POST" }),
+    ),
+  confirmDonationDelivery: async (offerId: number) =>
+    DonationOfferSchema.parse(
+      await request<unknown>(`/donation-offers/${offerId}/delivered`, { method: "POST" }),
     ),
   lotTimeline: async (lotId: number) =>
     TimelineEventSchema.array().parse(await request<unknown>(`/lots/${lotId}/timeline`)),
