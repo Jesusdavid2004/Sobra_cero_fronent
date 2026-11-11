@@ -1,6 +1,12 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { fetchLot, fetchLots, PublicApiError } from "./server-api";
+import {
+  fetchLot,
+  fetchLots,
+  fetchPublicShop,
+  PublicApiError,
+  SHOP_PROFILE_REVALIDATE_SECONDS,
+} from "./server-api";
 
 const validLot = {
   id: 1,
@@ -57,5 +63,24 @@ describe("server-api", () => {
     mockFetch(Response.json({ id: "not-a-number" }));
 
     await expect(fetchLot(103)).rejects.toThrow();
+  });
+
+  it("lets a shop profile be cached for a while instead of reading it on every request", async () => {
+    const fetchMock = mockFetch(
+      Response.json({
+        id: 4,
+        name: "Bakery",
+        description: "",
+        business_type: "restaurant",
+        latitude: 4.7,
+        longitude: -74,
+      }),
+    );
+
+    await expect(fetchPublicShop(4)).resolves.toMatchObject({ name: "Bakery" });
+
+    expect(fetchMock).toHaveBeenCalledWith(expect.stringContaining("/public/shops/4"), {
+      next: { revalidate: SHOP_PROFILE_REVALIDATE_SECONDS },
+    });
   });
 });

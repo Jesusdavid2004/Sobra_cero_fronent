@@ -294,5 +294,9 @@
   "timelinePickedUp": "{units} unidades recogidas",
   "timelineReservationCancelled": "Reserva de {units} unidades cancelada",
   "timelineReservationExpired": "Reserva de {units} unidades vencida",
-  "timelineDonated": "{units} unidades donadas"
+  "timelineDonated": "{units} unidades donadas",
+  "shopProfileEyebrow": "Perfil del comercio",
+  "shopProfileLots": "Ver lotes disponibles",
+  "shopProfileLink": "Ver el perfil del comercio",
+  "shopProfileGenerated": "Perfil generado a las {time}. Se actualiza como máximo una vez por minuto; el stock siempre se lee en vivo en cada lote."
 }

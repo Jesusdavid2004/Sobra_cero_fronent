@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import Header from "@/components/Header";
@@ -134,6 +134,12 @@ export default function LotDetailView({ lotId, initialLot, initialPromos }: Prop
         ) : null}
         <h1 className="text-4xl font-black">{lot.title}</h1>
         <p className="mt-2 text-stone-500">{lot.description}</p>
+        <Link
+          href={`/shops/${lot.shop_id}`}
+          className="mt-2 inline-block text-sm font-bold text-c426431 underline underline-offset-4"
+        >
+          {t.shopProfileLink}
+        </Link>
         <div className="mt-6 flex flex-wrap gap-3 text-sm">
           <span className="rounded-full bg-orange-100 px-3 py-1 font-bold text-orange-700">
             {lot.discount_percent}% {t.discount}

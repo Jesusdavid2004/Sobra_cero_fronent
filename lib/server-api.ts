@@ -33,7 +33,20 @@ const PromotionSchema = z.object({
   prompt: z.string(),
 });
 
+const PublicShopSchema = z.object({
+  id: z.number().int(),
+  name: z.string(),
+  description: z.string(),
+  business_type: z.enum(["restaurant", "supermarket"]),
+  latitude: z.number(),
+  longitude: z.number(),
+});
+
+export type PublicShop = z.infer<typeof PublicShopSchema>;
 export type PublicLot = z.infer<typeof LotSchema>;
+
+/** A shop profile changes rarely, so it may be served from the ISR cache for this long. */
+export const SHOP_PROFILE_REVALIDATE_SECONDS = 60;
 export type PublicPromotion = z.infer<typeof PromotionSchema>;
 
 export type PublicLotFilters = { category?: string; business_type?: string };
@@ -56,6 +69,18 @@ async function readFresh<T>(path: string, schema: z.ZodType<T>): Promise<T> {
   }
   return schema.parse(await response.json());
 }
+
+async function readRevalidated<T>(path: string, schema: z.ZodType<T>, seconds: number): Promise<T> {
+  const response = await fetch(`${PUBLIC_API_URL}${path}`, { next: { revalidate: seconds } });
+  if (!response.ok) {
+    throw new PublicApiError(`Request failed (${response.status})`, response.status);
+  }
+  return schema.parse(await response.json());
+}
+
+export const fetchPublicShop = cache((shopId: number) =>
+  readRevalidated(`/public/shops/${shopId}`, PublicShopSchema, SHOP_PROFILE_REVALIDATE_SECONDS),
+);
 
 export const fetchLot = cache((lotId: number) => readFresh(`/lots/${lotId}`, LotSchema));
 

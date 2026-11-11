@@ -294,5 +294,9 @@
   "timelinePickedUp": "{units} units picked up",
   "timelineReservationCancelled": "Reservation of {units} units cancelled",
   "timelineReservationExpired": "Reservation of {units} units expired",
-  "timelineDonated": "{units} units donated"
+  "timelineDonated": "{units} units donated",
+  "shopProfileEyebrow": "Shop profile",
+  "shopProfileLots": "See available lots",
+  "shopProfileLink": "View the shop profile",
+  "shopProfileGenerated": "Profile generated at {time}. It refreshes at most once a minute; stock is always read live on each lot."
 }
