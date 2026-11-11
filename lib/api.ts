@@ -118,7 +118,8 @@ export class ApiError extends Error {
   }
 }
 
-const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
+export const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
+const BASE = API_BASE;
 
 let accessToken: string | null = null;
 let refreshPromise: Promise<string | null> | null = null;
