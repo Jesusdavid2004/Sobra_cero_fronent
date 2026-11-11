@@ -40,6 +40,8 @@ const ACTION_KEYS: Record<RescuePlan["action"], string> = {
 const VISIBLE_STATUSES: RescuePlan["status"][] = ["pending_approval", "approved", "not_actionable"];
 
 const GENERIC_ERROR_KEY = "genericError";
+const SECONDARY_BUTTON =
+  "rounded-full border border-c30442a/40 px-4 py-1.5 text-xs font-bold text-c30442a hover:bg-cf0f3ec disabled:opacity-60";
 
 function errorKeyFor(cause: unknown, t: Record<string, string>): string {
   const key = cause instanceof ApiError && cause.code ? `rescueError_${cause.code}` : "";
@@ -212,6 +214,39 @@ export default function RescuePlanPanel({ shopId, lots, t, locale }: Props) {
                   ))}
                 </ul>
 
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {!explanations[plan.id] && plan.status !== "not_actionable" ? (
+                    <button
+                      type="button"
+                      disabled={busyKey !== null}
+                      onClick={() => explain(plan.id)}
+                      className={SECONDARY_BUTTON}
+                    >
+                      {busyKey === `ex-${plan.id}` ? t.rescueExplaining : t.rescueExplain}
+                    </button>
+                  ) : null}
+                  {plan.expected_sales !== null ? (
+                    <button
+                      type="button"
+                      aria-expanded={simulatingPlanId === plan.id}
+                      onClick={() =>
+                        setSimulatingPlanId(simulatingPlanId === plan.id ? null : plan.id)
+                      }
+                      className={SECONDARY_BUTTON}
+                    >
+                      {simulatingPlanId === plan.id ? t.simHide : t.simCompare}
+                    </button>
+                  ) : null}
+                  <button
+                    type="button"
+                    aria-expanded={timelinePlanId === plan.id}
+                    onClick={() => setTimelinePlanId(timelinePlanId === plan.id ? null : plan.id)}
+                    className={SECONDARY_BUTTON}
+                  >
+                    {timelinePlanId === plan.id ? t.timelineHide : t.timelineShow}
+                  </button>
+                </div>
+
                 {explanations[plan.id] ? (
                   <p className="mt-3 rounded-2xl bg-ceef5e1 px-4 py-3 text-sm text-c2f4a22">
                     <span className="mr-2 rounded-full bg-c30442a px-2 py-0.5 text-[10px] font-bold uppercase text-white">
@@ -219,49 +254,16 @@ export default function RescuePlanPanel({ shopId, lots, t, locale }: Props) {
                     </span>
                     {explanations[plan.id]}
                   </p>
-                ) : plan.status !== "not_actionable" ? (
-                  <button
-                    type="button"
-                    disabled={busyKey !== null}
-                    onClick={() => explain(plan.id)}
-                    className="mt-3 self-start rounded-full border border-c30442a/40 px-4 py-1.5 text-xs font-bold text-c30442a hover:bg-cf0f3ec disabled:opacity-60"
-                  >
-                    {busyKey === `ex-${plan.id}` ? t.rescueExplaining : t.rescueExplain}
-                  </button>
                 ) : null}
-
-                {plan.expected_sales !== null ? (
-                  <>
-                    <button
-                      type="button"
-                      aria-expanded={simulatingPlanId === plan.id}
-                      onClick={() =>
-                        setSimulatingPlanId(simulatingPlanId === plan.id ? null : plan.id)
-                      }
-                      className="mt-3 self-start rounded-full border border-c30442a/40 px-4 py-1.5 text-xs font-bold text-c30442a hover:bg-cf0f3ec"
-                    >
-                      {simulatingPlanId === plan.id ? t.simHide : t.simCompare}
-                    </button>
-                    {simulatingPlanId === plan.id ? (
-                      <ScenarioSimulator
-                        planId={plan.id}
-                        availableQuantity={plan.available_quantity}
-                        defaultDonationUnits={Math.floor(plan.surplus_units ?? 0)}
-                        t={t}
-                        locale={locale}
-                      />
-                    ) : null}
-                  </>
+                {simulatingPlanId === plan.id ? (
+                  <ScenarioSimulator
+                    planId={plan.id}
+                    availableQuantity={plan.available_quantity}
+                    defaultDonationUnits={Math.floor(plan.surplus_units ?? 0)}
+                    t={t}
+                    locale={locale}
+                  />
                 ) : null}
-
-                <button
-                  type="button"
-                  aria-expanded={timelinePlanId === plan.id}
-                  onClick={() => setTimelinePlanId(timelinePlanId === plan.id ? null : plan.id)}
-                  className="mt-3 self-start rounded-full border border-c30442a/40 px-4 py-1.5 text-xs font-bold text-c30442a hover:bg-cf0f3ec"
-                >
-                  {timelinePlanId === plan.id ? t.timelineHide : t.timelineShow}
-                </button>
                 {timelinePlanId === plan.id ? (
                   <LotTimeline lotId={plan.lot_id} t={t} locale={locale} />
                 ) : null}
