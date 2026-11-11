@@ -279,5 +279,20 @@
   "simRevenue": "Estimated revenue",
   "simStale": "The lot stock changed after this plan was created, so these numbers may be out of date.",
   "rescueError_simulation_invalid": "Those values are outside what this lot allows.",
-  "rescueError_simulation_unavailable": "This plan has no numbers to simulate from."
+  "rescueError_simulation_unavailable": "This plan has no numbers to simulate from.",
+  "timelineShow": "Show history",
+  "timelineHide": "Hide history",
+  "timelineLoading": "Loading history...",
+  "timelineEmpty": "Nothing has happened to this lot yet.",
+  "timelineError": "Could not load the history of this lot.",
+  "timelinePlanGenerated": "Rescue plan generated",
+  "timelinePlanApproved": "Plan approved by the shop",
+  "timelinePlanRejected": "Plan rejected by the shop",
+  "timelineDiscountApplied": "Discount of {percent}% applied",
+  "timelineAnalysisFallback": "Analysis ran locally because the analysis service was unavailable",
+  "timelineReserved": "{units} units reserved",
+  "timelinePickedUp": "{units} units picked up",
+  "timelineReservationCancelled": "Reservation of {units} units cancelled",
+  "timelineReservationExpired": "Reservation of {units} units expired",
+  "timelineDonated": "{units} units donated"
 }

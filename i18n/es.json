@@ -279,5 +279,20 @@
   "simRevenue": "Ingresos estimados",
   "simStale": "El stock del lote cambió después de crear este plan, así que estas cifras pueden estar desactualizadas.",
   "rescueError_simulation_invalid": "Esos valores están fuera de lo que permite este lote.",
-  "rescueError_simulation_unavailable": "Este plan no tiene cifras para simular."
+  "rescueError_simulation_unavailable": "Este plan no tiene cifras para simular.",
+  "timelineShow": "Ver historial",
+  "timelineHide": "Ocultar historial",
+  "timelineLoading": "Cargando historial...",
+  "timelineEmpty": "Todavía no ha pasado nada con este lote.",
+  "timelineError": "No se pudo cargar el historial de este lote.",
+  "timelinePlanGenerated": "Plan de rescate generado",
+  "timelinePlanApproved": "Plan aprobado por el comercio",
+  "timelinePlanRejected": "Plan rechazado por el comercio",
+  "timelineDiscountApplied": "Descuento del {percent}% aplicado",
+  "timelineAnalysisFallback": "El análisis se ejecutó localmente porque el servicio de análisis no estaba disponible",
+  "timelineReserved": "{units} unidades reservadas",
+  "timelinePickedUp": "{units} unidades recogidas",
+  "timelineReservationCancelled": "Reserva de {units} unidades cancelada",
+  "timelineReservationExpired": "Reserva de {units} unidades vencida",
+  "timelineDonated": "{units} unidades donadas"
 }

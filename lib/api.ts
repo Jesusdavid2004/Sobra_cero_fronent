@@ -69,6 +69,27 @@ const SimulationSchema = z.object({
 
 export type Simulation = z.infer<typeof SimulationSchema>;
 
+const TimelineEventSchema = z.object({
+  kind: z.enum([
+    "plan_generated",
+    "plan_approved",
+    "plan_rejected",
+    "discount_applied",
+    "analysis_fallback",
+    "reserved",
+    "picked_up",
+    "reservation_cancelled",
+    "reservation_expired",
+    "donated",
+  ]),
+  occurred_at: z.string(),
+  plan_id: z.number().int().nullable(),
+  units: z.number().int().nullable(),
+  discount_percent: z.number().int().nullable(),
+});
+
+export type TimelineEvent = z.infer<typeof TimelineEventSchema>;
+
 export type User = {
   id: number;
   email: string;
@@ -311,6 +332,8 @@ export const api = {
         }),
       }),
     ),
+  lotTimeline: async (lotId: number) =>
+    TimelineEventSchema.array().parse(await request<unknown>(`/lots/${lotId}/timeline`)),
   shopImpact: async (shopId: number) =>
     ShopImpactSchema.parse(await request<unknown>(`/shops/${shopId}/impact`)),
   generateRescuePlan: async (lotId: number) =>
