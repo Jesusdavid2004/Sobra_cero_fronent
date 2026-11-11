@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 import Header from "@/components/Header";
 import ExpiryScanPanel from "@/components/ExpiryScanPanel";
+import LocalDateTime from "@/components/LocalDateTime";
 import PickupQr from "@/components/pickup/PickupQr";
 import { useLotStream } from "@/components/live/useLotStream";
 import { ApiError, api, type Lot, type Promotion } from "@/lib/api";
@@ -151,8 +152,7 @@ export default function LotDetailView({ lotId, initialLot, initialPromos }: Prop
             {lot.quantity} {t.detailQuantity}
           </span>
           <span className="rounded-full bg-stone-100 px-3 py-1">
-            {t.detailExpires}:{" "}
-            {new Date(lot.expires_at).toLocaleString(lang === "es" ? "es-CO" : "en-US")}
+            {t.detailExpires}: <LocalDateTime iso={lot.expires_at} locale={lang} />
           </span>
         </div>
         <p className="mt-4 text-2xl font-bold text-emerald-600">
