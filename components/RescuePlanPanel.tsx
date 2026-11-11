@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 
+import ScenarioSimulator from "@/components/ScenarioSimulator";
 import { api, ApiError, type RescuePlan } from "@/lib/api";
 
 export type RescueLot = { lotId: number; name: string };
@@ -50,6 +51,7 @@ export default function RescuePlanPanel({ shopId, lots, t, locale }: Props) {
   const [busyKey, setBusyKey] = useState<string | null>(null);
   const [errorKey, setErrorKey] = useState<string | null>(null);
   const [explanations, setExplanations] = useState<Record<number, string>>({});
+  const [simulatingPlanId, setSimulatingPlanId] = useState<number | null>(null);
   const number = new Intl.NumberFormat(locale === "es" ? "es-CO" : "en-US", {
     maximumFractionDigits: 1,
   });
@@ -224,6 +226,30 @@ export default function RescuePlanPanel({ shopId, lots, t, locale }: Props) {
                   >
                     {busyKey === `ex-${plan.id}` ? t.rescueExplaining : t.rescueExplain}
                   </button>
+                ) : null}
+
+                {plan.expected_sales !== null ? (
+                  <>
+                    <button
+                      type="button"
+                      aria-expanded={simulatingPlanId === plan.id}
+                      onClick={() =>
+                        setSimulatingPlanId(simulatingPlanId === plan.id ? null : plan.id)
+                      }
+                      className="mt-3 self-start rounded-full border border-c30442a/40 px-4 py-1.5 text-xs font-bold text-c30442a hover:bg-cf0f3ec"
+                    >
+                      {simulatingPlanId === plan.id ? t.simHide : t.simCompare}
+                    </button>
+                    {simulatingPlanId === plan.id ? (
+                      <ScenarioSimulator
+                        planId={plan.id}
+                        availableQuantity={plan.available_quantity}
+                        defaultDonationUnits={Math.floor(plan.surplus_units ?? 0)}
+                        t={t}
+                        locale={locale}
+                      />
+                    ) : null}
+                  </>
                 ) : null}
 
                 <p className="mt-3 text-xs text-c788475">

@@ -50,6 +50,25 @@ const ShopImpactSchema = z.object({
 
 export type ShopImpact = z.infer<typeof ShopImpactSchema>;
 
+const SimulationSchema = z.object({
+  hypothetical: z.literal(true),
+  stale: z.boolean(),
+  demand_uplift_percent: z.number().int(),
+  donation_units: z.number().int(),
+  scenarios: z.array(
+    z.object({
+      kind: z.enum(["keep_offer", "apply_discount", "separate_donation"]),
+      discount_percent: z.number().int(),
+      donated_units: z.number().int(),
+      expected_sales: z.number(),
+      surplus_units: z.number(),
+      estimated_revenue_cents: z.number().int(),
+    }),
+  ),
+});
+
+export type Simulation = z.infer<typeof SimulationSchema>;
+
 export type User = {
   id: number;
   email: string;
@@ -279,6 +298,19 @@ export const api = {
     request<WasteRisk[]>(`/shops/${shopId}/waste-risk?language=${language}`),
   loadSampleSalesHistory: (shopId: number) =>
     request<SalesHistoryCreated>(`/shops/${shopId}/sales-history/sample`, { method: "POST" }),
+  simulateRescuePlan: async (
+    planId: number,
+    parameters: { demandUpliftPercent: number; donationUnits: number },
+  ) =>
+    SimulationSchema.parse(
+      await request<unknown>(`/rescue-plans/${planId}/simulation`, {
+        method: "POST",
+        body: JSON.stringify({
+          demand_uplift_percent: parameters.demandUpliftPercent,
+          donation_units: parameters.donationUnits,
+        }),
+      }),
+    ),
   shopImpact: async (shopId: number) =>
     ShopImpactSchema.parse(await request<unknown>(`/shops/${shopId}/impact`)),
   generateRescuePlan: async (lotId: number) =>

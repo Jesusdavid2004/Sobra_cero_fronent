@@ -265,5 +265,19 @@
   "impactEmpty": "Aún no hay recogidas. Las unidades rescatadas aparecen aquí cuando confirmes una recogida.",
   "impactBarLabel": "Resultado de las unidades reservadas y donadas",
   "impactError": "No se pudieron cargar las cifras de impacto.",
-  "impactNote": "Los ingresos y el ahorro son estimaciones con el precio actual de cada lote frente a su precio original. No se afirma ninguna equivalencia ambiental."
+  "impactNote": "Los ingresos y el ahorro son estimaciones con el precio actual de cada lote frente a su precio original. No se afirma ninguna equivalencia ambiental.",
+  "simCompare": "Comparar escenarios",
+  "simHide": "Ocultar escenarios",
+  "simHypothetical": "Escenarios hipotéticos, no una predicción validada. El efecto de un descuento en las ventas es el valor que ingresas abajo.",
+  "simUplift": "Demanda extra que supones por el descuento: {percent}%",
+  "simDonation": "Unidades a separar para donación",
+  "simKeep": "Mantener la oferta",
+  "simDiscount": "Aplicar un descuento del {percent}%",
+  "simDonate": "Separar {units} unidades para donación",
+  "simExpectedSales": "Ventas esperadas",
+  "simSurplus": "Excedente estimado",
+  "simRevenue": "Ingresos estimados",
+  "simStale": "El stock del lote cambió después de crear este plan, así que estas cifras pueden estar desactualizadas.",
+  "rescueError_simulation_invalid": "Esos valores están fuera de lo que permite este lote.",
+  "rescueError_simulation_unavailable": "Este plan no tiene cifras para simular."
 }

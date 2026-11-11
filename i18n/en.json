@@ -265,5 +265,19 @@
   "impactEmpty": "No pickups yet. Rescued units appear here once you confirm a pickup.",
   "impactBarLabel": "Outcome of reserved and donated units",
   "impactError": "Could not load the impact numbers.",
-  "impactNote": "Revenue and savings are estimates at each lot's current price, compared with its original price. No environmental equivalence is claimed."
+  "impactNote": "Revenue and savings are estimates at each lot's current price, compared with its original price. No environmental equivalence is claimed.",
+  "simCompare": "Compare scenarios",
+  "simHide": "Hide scenarios",
+  "simHypothetical": "Hypothetical scenarios, not a validated prediction. The effect of a discount on sales is the value you enter below.",
+  "simUplift": "Extra demand you assume from the discount: {percent}%",
+  "simDonation": "Units to separate for donation",
+  "simKeep": "Keep the offer",
+  "simDiscount": "Apply a {percent}% discount",
+  "simDonate": "Separate {units} units for donation",
+  "simExpectedSales": "Expected sales",
+  "simSurplus": "Estimated surplus",
+  "simRevenue": "Estimated revenue",
+  "simStale": "The lot stock changed after this plan was created, so these numbers may be out of date.",
+  "rescueError_simulation_invalid": "Those values are outside what this lot allows.",
+  "rescueError_simulation_unavailable": "This plan has no numbers to simulate from."
 }
