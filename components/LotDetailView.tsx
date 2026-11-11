@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 import Header from "@/components/Header";
 import ExpiryScanPanel from "@/components/ExpiryScanPanel";
+import PickupQr from "@/components/pickup/PickupQr";
 import { useLotStream } from "@/components/live/useLotStream";
 import { ApiError, api, type Lot, type Promotion } from "@/lib/api";
 import { useApp } from "@/providers/AppProviders";
@@ -23,6 +24,7 @@ export default function LotDetailView({ lotId, initialLot, initialPromos }: Prop
   const [promos, setPromos] = useState<Promotion[]>(initialPromos);
   const [quantity, setQuantity] = useState("1");
   const [message, setMessage] = useState("");
+  const [credential, setCredential] = useState<{ id: number; code: string } | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [liveNotice, setLiveNotice] = useState("");
@@ -72,6 +74,7 @@ export default function LotDetailView({ lotId, initialLot, initialPromos }: Prop
     setError("");
     try {
       const reservation = await api.reserve(lotId, Number(quantity));
+      setCredential({ id: reservation.id, code: reservation.pickup_code });
       setMessage(
         `${t.detailReserved} ${t.reservationReference}: ${reservation.id}. ${t.reservationPickupCode}: ${reservation.pickup_code}`,
       );
@@ -200,6 +203,24 @@ export default function LotDetailView({ lotId, initialLot, initialPromos }: Prop
           <p className="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
             {message}
           </p>
+        ) : null}
+        {credential ? (
+          <section
+            aria-labelledby="pickup-qr-title"
+            className="mt-4 flex flex-wrap items-center gap-5 rounded-3xl border border-stone-200 p-5"
+          >
+            <PickupQr
+              reservationId={credential.id}
+              pickupCode={credential.code}
+              label={t.pickupQrLabel.replace("{id}", String(credential.id))}
+            />
+            <div className="max-w-sm">
+              <h2 id="pickup-qr-title" className="text-lg font-black">
+                {t.pickupQrTitle}
+              </h2>
+              <p className="mt-1 text-sm text-stone-600">{t.pickupQrHint}</p>
+            </div>
+          </section>
         ) : null}
         {error ? (
           <p className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>

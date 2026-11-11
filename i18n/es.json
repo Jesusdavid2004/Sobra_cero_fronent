@@ -345,5 +345,14 @@
   "discoveryReason_outside_pickup_window": "tu ventana termina antes de que puedas llegar",
   "discoveryReason_over_budget": "supera tu presupuesto",
   "discoveryReason_not_enough_stock": "no quedan suficientes porciones",
-  "discoveryReason_category_mismatch": "es de otra categoría"
+  "discoveryReason_category_mismatch": "es de otra categoría",
+  "pickupQrTitle": "Tu QR de recogida",
+  "pickupQrHint": "Muestra este código al comercio cuando recojas. Funciona una sola vez; escanearlo de nuevo no cambia nada.",
+  "pickupQrLabel": "Código QR de la reserva {id}",
+  "pickupScanButton": "Escanear un QR de recogida",
+  "pickupScanStop": "Dejar de escanear",
+  "pickupScanHint": "Vista de la cámara para escanear un QR de recogida",
+  "pickupScanInvalid": "Ese QR no es un código de recogida de SobraCero.",
+  "pickupScanDenied": "No se pudo abrir la cámara. Escribe la referencia y el código.",
+  "pickupScanUnsupported": "Este navegador no puede escanear QR. Escribe la referencia y el código."
 }

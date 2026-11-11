@@ -345,5 +345,14 @@
   "discoveryReason_outside_pickup_window": "your window ends before you could arrive",
   "discoveryReason_over_budget": "over your budget",
   "discoveryReason_not_enough_stock": "not enough portions left",
-  "discoveryReason_category_mismatch": "a different category"
+  "discoveryReason_category_mismatch": "a different category",
+  "pickupQrTitle": "Your pickup QR",
+  "pickupQrHint": "Show this code to the shop when you collect. It works once; scanning it again changes nothing.",
+  "pickupQrLabel": "QR code for reservation {id}",
+  "pickupScanButton": "Scan a pickup QR",
+  "pickupScanStop": "Stop scanning",
+  "pickupScanHint": "Camera preview for scanning a pickup QR",
+  "pickupScanInvalid": "That QR is not a SobraCero pickup code.",
+  "pickupScanDenied": "The camera could not be opened. Type the reference and code instead.",
+  "pickupScanUnsupported": "This browser cannot scan QR codes. Type the reference and code instead."
 }

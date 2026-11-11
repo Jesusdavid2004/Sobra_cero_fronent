@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import Header from "@/components/Header";
 import ImpactPanel from "@/components/ImpactPanel";
+import PickupScanner from "@/components/pickup/PickupScanner";
 import RescuePlanPanel from "@/components/RescuePlanPanel";
 import { ApiError, api, type Product, type Shop, type WasteRisk } from "@/lib/api";
 import { useApp } from "@/providers/AppProviders";
@@ -629,6 +630,13 @@ function PickupConfirmationForm({
           {t.pickupSubmit}
         </button>
       </form>
+      <PickupScanner
+        t={t}
+        onScan={(credential) => {
+          setReservationId(String(credential.reservationId));
+          setPickupCode(credential.pickupCode);
+        }}
+      />
       {message ? (
         <p
           role="status"
@@ -720,7 +728,10 @@ function ShopForm({
             className="w-full rounded-xl border border-cdfe4da bg-cfbfcf9 px-4 py-3 text-sm"
           />
         </div>
-        <button type="submit" className="w-full rounded-xl bg-c203a2c px-4 py-3 text-sm font-bold text-white transition hover:bg-c2e513d">
+        <button
+          type="submit"
+          className="w-full rounded-xl bg-c203a2c px-4 py-3 text-sm font-bold text-white transition hover:bg-c2e513d"
+        >
           {t.shopSubmit}
         </button>
       </form>
@@ -792,7 +803,10 @@ function ProductForm({
           aria-label={t.productDescription}
           className="w-full rounded-xl border border-cdfe4da bg-cfbfcf9 px-4 py-3 text-sm"
         />
-        <button type="submit" className="w-full rounded-xl border border-ccfdac6 bg-cf4f7f1 px-4 py-3 text-sm font-bold text-c30442a transition hover:bg-ce9f1e1">
+        <button
+          type="submit"
+          className="w-full rounded-xl border border-ccfdac6 bg-cf4f7f1 px-4 py-3 text-sm font-bold text-c30442a transition hover:bg-ce9f1e1"
+        >
           {t.productSubmit}
         </button>
       </form>
