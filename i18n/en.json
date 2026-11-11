@@ -244,5 +244,11 @@
   "marketApplyFilters": "Apply filters",
   "marketHighlights": "Fresh from the shops",
   "marketHighlightsLoading": "Loading highlights...",
-  "marketLoadError": "Could not load food lots right now. Please try again in a moment."
+  "marketLoadError": "Could not load food lots right now. Please try again in a moment.",
+  "liveStatusLive": "Live stock",
+  "liveStatusConnecting": "Connecting...",
+  "liveStatusOffline": "Offline, reconnecting...",
+  "liveSoldOut": "Sold out",
+  "liveStockUpdated": "Stock updated: {quantity} left.",
+  "liveUnavailable": "This lot is no longer available."
 }

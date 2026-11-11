@@ -244,5 +244,11 @@
   "marketApplyFilters": "Aplicar filtros",
   "marketHighlights": "Recién salido de los comercios",
   "marketHighlightsLoading": "Cargando destacados...",
-  "marketLoadError": "No se pudieron cargar los lotes ahora mismo. Inténtalo de nuevo en un momento."
+  "marketLoadError": "No se pudieron cargar los lotes ahora mismo. Inténtalo de nuevo en un momento.",
+  "liveStatusLive": "Stock en vivo",
+  "liveStatusConnecting": "Conectando...",
+  "liveStatusOffline": "Sin conexión, reconectando...",
+  "liveSoldOut": "Agotado",
+  "liveStockUpdated": "Stock actualizado: quedan {quantity}.",
+  "liveUnavailable": "Este lote ya no está disponible."
 }

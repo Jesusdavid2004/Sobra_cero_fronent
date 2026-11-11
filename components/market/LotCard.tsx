@@ -1,9 +1,10 @@
 import { Link } from "@/i18n/navigation";
+import { LiveQuantity } from "@/components/live/LiveStock";
 import type { PublicLot } from "@/lib/server-api";
 
 type Props = {
   lot: PublicLot;
-  labels: Record<"discount" | "available" | "category" | "business" | "view", string>;
+  labels: Record<"discount" | "available" | "soldOut" | "category" | "business" | "view", string>;
   currency: Intl.NumberFormat;
 };
 
@@ -29,7 +30,12 @@ export default function LotCard({ lot, labels, currency }: Props) {
             {lot.discount_percent}% {labels.discount}
           </span>
           <span className="text-sm text-stone-600">
-            {lot.quantity} {labels.available}
+            <LiveQuantity
+              lotId={lot.id}
+              initialQuantity={lot.quantity}
+              availableLabel={labels.available}
+              soldOutLabel={labels.soldOut}
+            />
           </span>
         </div>
         <div className="mt-3 flex flex-wrap gap-2 text-xs font-semibold text-c627158">

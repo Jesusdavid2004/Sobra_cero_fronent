@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
 
 import Header from "@/components/Header";
+import { LiveIndicator, LiveStockProvider } from "@/components/live/LiveStock";
 import LotCard from "@/components/market/LotCard";
 import { fetchLotPromotions, fetchLots } from "@/lib/server-api";
 
@@ -135,22 +136,32 @@ async function LotsGrid({ locale, category, businessType }: SectionProps) {
     currency: "USD",
   });
   return (
-    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      {lots.map((lot) => (
-        <LotCard
-          key={lot.id}
-          lot={lot}
-          currency={currency}
-          labels={{
-            discount: t("discount"),
-            available: t("available"),
-            category: categoryLabel(t, lot.category),
-            business: t(lot.business_type),
-            view: t("viewAndReserve"),
-          }}
-        />
-      ))}
-    </div>
+    <LiveStockProvider lotIds={lots.map((lot) => lot.id)}>
+      <LiveIndicator
+        labels={{
+          live: t("liveStatusLive"),
+          connecting: t("liveStatusConnecting"),
+          offline: t("liveStatusOffline"),
+        }}
+      />
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {lots.map((lot) => (
+          <LotCard
+            key={lot.id}
+            lot={lot}
+            currency={currency}
+            labels={{
+              discount: t("discount"),
+              available: t("available"),
+              soldOut: t("liveSoldOut"),
+              category: categoryLabel(t, lot.category),
+              business: t(lot.business_type),
+              view: t("viewAndReserve"),
+            }}
+          />
+        ))}
+      </div>
+    </LiveStockProvider>
   );
 }
 

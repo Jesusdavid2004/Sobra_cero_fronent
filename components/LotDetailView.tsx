@@ -1,10 +1,11 @@
 "use client";
 
 import { useRouter } from "@/i18n/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Header from "@/components/Header";
 import ExpiryScanPanel from "@/components/ExpiryScanPanel";
+import { useLotStream } from "@/components/live/useLotStream";
 import { ApiError, api, type Lot, type Promotion } from "@/lib/api";
 import { useApp } from "@/providers/AppProviders";
 
@@ -24,6 +25,25 @@ export default function LotDetailView({ lotId, initialLot, initialPromos }: Prop
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [liveNotice, setLiveNotice] = useState("");
+  const [unavailable, setUnavailable] = useState(false);
+  const stream = useLotStream([lotId]);
+  const liveState = stream.states[lotId];
+  const lastQuantity = useRef<number | null>(initialLot?.quantity ?? null);
+
+  useEffect(() => {
+    if (!liveState) return;
+    setLot((current) =>
+      current
+        ? { ...current, quantity: liveState.quantity, discount_percent: liveState.discount_percent }
+        : current,
+    );
+    setUnavailable(liveState.status !== "active" && liveState.status !== "sold_out");
+    if (lastQuantity.current !== null && lastQuantity.current !== liveState.quantity) {
+      setLiveNotice(t.liveStockUpdated.replace("{quantity}", String(liveState.quantity)));
+    }
+    lastQuantity.current = liveState.quantity;
+  }, [liveState, t.liveStockUpdated]);
 
   const load = async () => {
     try {
@@ -147,6 +167,29 @@ export default function LotDetailView({ lotId, initialLot, initialPromos }: Prop
           />
         ) : null}
 
+        <p
+          role="status"
+          className="mt-4 inline-flex items-center gap-2 text-xs font-bold text-stone-600"
+        >
+          <span
+            aria-hidden="true"
+            className={`h-2 w-2 rounded-full ${stream.status === "live" ? "bg-emerald-500" : "bg-stone-400"}`}
+          />
+          {stream.status === "live"
+            ? t.liveStatusLive
+            : stream.status === "offline"
+              ? t.liveStatusOffline
+              : t.liveStatusConnecting}
+        </p>
+        <p aria-live="polite" className="mt-2 text-sm font-semibold text-orange-700">
+          {liveNotice}
+        </p>
+        {unavailable ? (
+          <p role="alert" className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+            {t.liveUnavailable}
+          </p>
+        ) : null}
+
         {message ? (
           <p className="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
             {message}
@@ -178,7 +221,7 @@ export default function LotDetailView({ lotId, initialLot, initialPromos }: Prop
               />
               <button
                 type="submit"
-                disabled={!authReady || busy || lot.quantity === 0}
+                disabled={!authReady || busy || lot.quantity === 0 || unavailable}
                 className="mt-4 w-full rounded-xl bg-emerald-600 px-4 py-3 font-bold text-white hover:bg-emerald-700 disabled:opacity-50"
               >
                 {t.detailReserveSubmit}
