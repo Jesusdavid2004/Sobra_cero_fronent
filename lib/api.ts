@@ -10,6 +10,34 @@ const ExpiryScanSuggestionSchema = z.object({
 
 export type ExpiryScanSuggestion = z.infer<typeof ExpiryScanSuggestionSchema>;
 
+const RescuePlanSchema = z.object({
+  id: z.number().int(),
+  lot_id: z.number().int(),
+  shop_id: z.number().int(),
+  status: z.enum(["pending_approval", "approved", "rejected", "superseded", "not_actionable"]),
+  action: z.enum([
+    "keep_offer",
+    "apply_discount_rule",
+    "prepare_donation_offer",
+    "insufficient_history",
+  ]),
+  reasons: z.array(z.string()),
+  available_quantity: z.number().int(),
+  expected_sales: z.number().nullable(),
+  surplus_units: z.number().nullable(),
+  proposed_discount_percent: z.number().int().nullable(),
+  horizon_hours: z.number(),
+  data_points: z.number().int(),
+  rule_version: z.string(),
+  model_version: z.string(),
+  created_at: z.string(),
+  decided_at: z.string().nullable(),
+});
+
+const RescueExplanationSchema = z.object({ text: z.string(), source: z.literal("ai") });
+
+export type RescuePlan = z.infer<typeof RescuePlanSchema>;
+
 export type User = {
   id: number;
   email: string;
@@ -238,6 +266,26 @@ export const api = {
     request<WasteRisk[]>(`/shops/${shopId}/waste-risk?language=${language}`),
   loadSampleSalesHistory: (shopId: number) =>
     request<SalesHistoryCreated>(`/shops/${shopId}/sales-history/sample`, { method: "POST" }),
+  generateRescuePlan: async (lotId: number) =>
+    RescuePlanSchema.parse(
+      await request<unknown>(`/lots/${lotId}/rescue-plan`, { method: "POST" }),
+    ),
+  rescuePlans: async (shopId: number) =>
+    RescuePlanSchema.array().parse(await request<unknown>(`/shops/${shopId}/rescue-plans`)),
+  explainRescuePlan: async (planId: number, language: string) => {
+    const params = new URLSearchParams({ language });
+    return RescueExplanationSchema.parse(
+      await request<unknown>(`/rescue-plans/${planId}/explanation?${params}`, { method: "POST" }),
+    );
+  },
+  approveRescuePlan: async (planId: number) =>
+    RescuePlanSchema.parse(
+      await request<unknown>(`/rescue-plans/${planId}/approve`, { method: "POST" }),
+    ),
+  rejectRescuePlan: async (planId: number) =>
+    RescuePlanSchema.parse(
+      await request<unknown>(`/rescue-plans/${planId}/reject`, { method: "POST" }),
+    ),
   expiryScans: async (lotId: number) =>
     ExpiryScanSuggestionSchema.array().parse(await request<unknown>(`/lots/${lotId}/expiry-scans`)),
   scanExpiryDate: async (lotId: number, language: string) => {

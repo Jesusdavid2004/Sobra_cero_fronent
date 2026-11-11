@@ -5,6 +5,7 @@ import { useRouter } from "@/i18n/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import Header from "@/components/Header";
+import RescuePlanPanel from "@/components/RescuePlanPanel";
 import { ApiError, api, type Product, type Shop, type WasteRisk } from "@/lib/api";
 import { useApp } from "@/providers/AppProviders";
 
@@ -484,6 +485,15 @@ export default function ShopPage() {
                     />
                   </aside>
                 </div>
+
+                {selectedShop ? (
+                  <RescuePlanPanel
+                    shopId={selectedShop.id}
+                    lots={risk.map((item) => ({ lotId: item.lot_id, name: item.product_name }))}
+                    t={t}
+                    locale={lang}
+                  />
+                ) : null}
 
                 <section className="mt-6 rounded-3xl border border-[#e0e5da] bg-white p-5 md:p-7">
                   <div className="flex flex-wrap items-end justify-between gap-4">
