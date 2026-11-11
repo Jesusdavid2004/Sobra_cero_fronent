@@ -19,7 +19,9 @@ for (const key of englishKeys) {
   }
 
   const placeholders = (message) =>
-    [...message.matchAll(/\{([A-Za-z][A-Za-z0-9_]*)\}/g)].map((match) => match[1]).sort(compareText);
+    [...message.matchAll(/\{([A-Za-z][A-Za-z0-9_]*)\}/g)]
+      .map((match) => match[1])
+      .sort(compareText);
   if (
     JSON.stringify(placeholders(messages.en[key])) !==
     JSON.stringify(placeholders(messages.es[key]))
