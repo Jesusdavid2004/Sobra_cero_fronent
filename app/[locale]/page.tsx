@@ -57,6 +57,12 @@ export default function Home() {
               {t.howItWorks}
             </p>
             <h2 className="mt-2 text-3xl font-black md:text-4xl">{t.howItWorksTitle}</h2>
+            <Link
+              href="/how-it-works"
+              className="mt-3 inline-block text-sm font-bold underline underline-offset-4"
+            >
+              {t.howItWorks} →
+            </Link>
           </div>
           <div className="mt-7 grid gap-4 md:grid-cols-3">
             {[
