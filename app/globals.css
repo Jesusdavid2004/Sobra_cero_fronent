@@ -8,19 +8,29 @@
 }
 
 html {
-  background: #f5f3ee;
+  background: rgb(var(--color-cf5f3ee));
 }
 
 html[data-theme="dark"] {
   color-scheme: dark;
-  background: #0c0a09;
 }
 
 body {
-  @apply m-0 bg-[#f5f3ee] text-[#1f2a1f] antialiased;
-  background-image: radial-gradient(circle at 12% 8%, #e9efdc 0, transparent 38%),
-    radial-gradient(circle at 92% 90%, #f5dcec55 0, transparent 34%);
+  @apply m-0 bg-cf5f3ee text-c1f2a1f antialiased;
+  background-image: radial-gradient(circle at 12% 8%, rgb(var(--color-ce9efdc)) 0, transparent 38%),
+    radial-gradient(circle at 92% 90%, rgb(var(--color-cf5dcec) / 0.33) 0, transparent 34%);
   background-attachment: fixed;
+}
+
+input,
+select,
+textarea {
+  @apply bg-white text-c1f2a1f;
+}
+
+input::placeholder,
+textarea::placeholder {
+  @apply text-stone-400;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -33,5 +43,5 @@ body {
 button,
 a,
 input {
-  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#5a803f];
+  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-c5a803f;
 }
