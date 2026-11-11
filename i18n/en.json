@@ -250,5 +250,20 @@
   "liveStatusOffline": "Offline, reconnecting...",
   "liveSoldOut": "Sold out",
   "liveStockUpdated": "Stock updated: {quantity} left.",
-  "liveUnavailable": "This lot is no longer available."
+  "liveUnavailable": "This lot is no longer available.",
+  "impactEyebrow": "Verified impact",
+  "impactTitle": "What was really rescued",
+  "impactDescription": "Only confirmed pickups count as rescued. Publishing or reserving a lot is not counted.",
+  "impactPickedUp": "Picked up",
+  "impactDonated": "Donated",
+  "impactPending": "Reserved, waiting pickup",
+  "impactCancelled": "Cancelled",
+  "impactExpired": "Expired",
+  "impactRevenue": "Estimated revenue",
+  "impactSavings": "Estimated customer savings",
+  "impactUnits": "{count} units",
+  "impactEmpty": "No pickups yet. Rescued units appear here once you confirm a pickup.",
+  "impactBarLabel": "Outcome of reserved and donated units",
+  "impactError": "Could not load the impact numbers.",
+  "impactNote": "Revenue and savings are estimates at each lot's current price, compared with its original price. No environmental equivalence is claimed."
 }

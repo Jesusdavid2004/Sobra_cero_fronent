@@ -250,5 +250,20 @@
   "liveStatusOffline": "Sin conexión, reconectando...",
   "liveSoldOut": "Agotado",
   "liveStockUpdated": "Stock actualizado: quedan {quantity}.",
-  "liveUnavailable": "Este lote ya no está disponible."
+  "liveUnavailable": "Este lote ya no está disponible.",
+  "impactEyebrow": "Impacto verificado",
+  "impactTitle": "Lo que realmente se rescató",
+  "impactDescription": "Solo cuentan las recogidas confirmadas. Publicar o reservar un lote no se cuenta como rescatado.",
+  "impactPickedUp": "Recogidas",
+  "impactDonated": "Donadas",
+  "impactPending": "Reservadas, pendientes de recoger",
+  "impactCancelled": "Canceladas",
+  "impactExpired": "Vencidas",
+  "impactRevenue": "Ingresos estimados",
+  "impactSavings": "Ahorro estimado de clientes",
+  "impactUnits": "{count} unidades",
+  "impactEmpty": "Aún no hay recogidas. Las unidades rescatadas aparecen aquí cuando confirmes una recogida.",
+  "impactBarLabel": "Resultado de las unidades reservadas y donadas",
+  "impactError": "No se pudieron cargar las cifras de impacto.",
+  "impactNote": "Los ingresos y el ahorro son estimaciones con el precio actual de cada lote frente a su precio original. No se afirma ninguna equivalencia ambiental."
 }

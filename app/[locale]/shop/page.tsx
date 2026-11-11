@@ -5,6 +5,7 @@ import { useRouter } from "@/i18n/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import Header from "@/components/Header";
+import ImpactPanel from "@/components/ImpactPanel";
 import RescuePlanPanel from "@/components/RescuePlanPanel";
 import { ApiError, api, type Product, type Shop, type WasteRisk } from "@/lib/api";
 import { useApp } from "@/providers/AppProviders";
@@ -12,6 +13,7 @@ import { useApp } from "@/providers/AppProviders";
 export default function ShopPage() {
   const { t, token, authReady, lang, user } = useApp();
   const router = useRouter();
+  const [impactRevision, setImpactRevision] = useState(0);
   const [shops, setShops] = useState<Shop[]>([]);
   const [products, setProducts] = useState<Record<number, Product[]>>({});
   const [selectedShopId, setSelectedShopId] = useState("");
@@ -229,7 +231,12 @@ export default function ShopPage() {
           </p>
         ) : null}
 
-        {user?.role === "business" && !loading ? <PickupConfirmationForm t={t} /> : null}
+        {user?.role === "business" && !loading ? (
+          <PickupConfirmationForm
+            t={t}
+            onConfirmed={() => setImpactRevision((value) => value + 1)}
+          />
+        ) : null}
 
         {loading ? (
           <p className="py-12 text-stone-600">{t.dashboardLoadingRisk}</p>
@@ -484,6 +491,15 @@ export default function ShopPage() {
                 </div>
 
                 {selectedShop ? (
+                  <ImpactPanel
+                    shopId={selectedShop.id}
+                    revision={impactRevision}
+                    t={t}
+                    locale={lang}
+                  />
+                ) : null}
+
+                {selectedShop ? (
                   <RescuePlanPanel
                     shopId={selectedShop.id}
                     lots={risk.map((item) => ({ lotId: item.lot_id, name: item.product_name }))}
@@ -539,7 +555,13 @@ type FormState = {
   business_type: "restaurant" | "supermarket";
 };
 
-function PickupConfirmationForm({ t }: { t: Record<string, string> }) {
+function PickupConfirmationForm({
+  t,
+  onConfirmed,
+}: {
+  t: Record<string, string>;
+  onConfirmed: () => void;
+}) {
   const [reservationId, setReservationId] = useState("");
   const [pickupCode, setPickupCode] = useState("");
   const [busy, setBusy] = useState(false);
@@ -561,6 +583,7 @@ function PickupConfirmationForm({ t }: { t: Record<string, string> }) {
       setReservationId("");
       setPickupCode("");
       setMessage(t.pickupSuccess);
+      onConfirmed();
     } catch {
       setError(t.pickupError);
     } finally {

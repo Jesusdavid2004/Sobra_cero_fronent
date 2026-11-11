@@ -38,6 +38,18 @@ const RescueExplanationSchema = z.object({ text: z.string(), source: z.literal("
 
 export type RescuePlan = z.infer<typeof RescuePlanSchema>;
 
+const ShopImpactSchema = z.object({
+  picked_up_units: z.number().int(),
+  donated_units: z.number().int(),
+  pending_units: z.number().int(),
+  cancelled_units: z.number().int(),
+  expired_units: z.number().int(),
+  estimated_revenue_cents: z.number().int(),
+  estimated_savings_cents: z.number().int(),
+});
+
+export type ShopImpact = z.infer<typeof ShopImpactSchema>;
+
 export type User = {
   id: number;
   email: string;
@@ -267,6 +279,8 @@ export const api = {
     request<WasteRisk[]>(`/shops/${shopId}/waste-risk?language=${language}`),
   loadSampleSalesHistory: (shopId: number) =>
     request<SalesHistoryCreated>(`/shops/${shopId}/sales-history/sample`, { method: "POST" }),
+  shopImpact: async (shopId: number) =>
+    ShopImpactSchema.parse(await request<unknown>(`/shops/${shopId}/impact`)),
   generateRescuePlan: async (lotId: number) =>
     RescuePlanSchema.parse(
       await request<unknown>(`/lots/${lotId}/rescue-plan`, { method: "POST" }),
