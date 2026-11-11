@@ -106,12 +106,9 @@ export default function ExpiryScanPanel({
   };
 
   return (
-    <section
-      className="mt-8 rounded-3xl border border-stone-200 p-6 dark:border-stone-800"
-      aria-busy={loading || busy}
-    >
+    <section className="mt-8 rounded-3xl border border-stone-200 p-6" aria-busy={loading || busy}>
       <h2 className="text-xl font-bold">{t.detailExpiryScans}</h2>
-      <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">{t.detailExpiryDisclaimer}</p>
+      <p className="mt-2 text-sm text-stone-600">{t.detailExpiryDisclaimer}</p>
       {loading ? <p className="mt-4 text-sm text-stone-500">{t.detailExpiryLoading}</p> : null}
       {canManage ? (
         <>
@@ -142,23 +139,23 @@ export default function ExpiryScanPanel({
           {suggestions.length ? (
             <ul className="mt-5 space-y-3">
               {suggestions.map((suggestion) => (
-                <li key={suggestion.id} className="rounded-2xl bg-stone-100 p-4 dark:bg-stone-800">
+                <li key={suggestion.id} className="rounded-2xl bg-stone-100 p-4">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <span className="font-semibold">
                       {suggestion.expires_on
                         ? dateFormatter.format(new Date(`${suggestion.expires_on}T00:00:00Z`))
                         : t.detailExpiryNoDate}
                     </span>
-                    <span className="rounded-full bg-white px-3 py-1 text-xs font-bold dark:bg-stone-900">
+                    <span className="rounded-full bg-white px-3 py-1 text-xs font-bold">
                       {statusLabel(suggestion.status)}
                     </span>
                   </div>
                   {suggestion.printed_date ? (
-                    <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
+                    <p className="mt-2 text-sm text-stone-600">
                       {t.detailExpiryPrintedDate}: {suggestion.printed_date}
                     </p>
                   ) : null}
-                  <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
+                  <p className="mt-1 text-sm text-stone-600">
                     {t.detailExpiryConfidence.replace(
                       "{percent}",
                       new Intl.NumberFormat(lang, {
@@ -181,7 +178,7 @@ export default function ExpiryScanPanel({
                         type="button"
                         onClick={() => void decide(suggestion.id, "reject")}
                         disabled={busy}
-                        className="rounded-lg border border-stone-300 px-3 py-2 text-sm font-bold disabled:opacity-50 dark:border-stone-600"
+                        className="rounded-lg border border-stone-300 px-3 py-2 text-sm font-bold disabled:opacity-50"
                       >
                         {t.detailExpiryReject}
                       </button>

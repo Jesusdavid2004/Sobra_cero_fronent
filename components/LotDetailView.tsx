@@ -118,10 +118,10 @@ export default function LotDetailView({ lotId, initialLot, initialPromos }: Prop
           <span className="rounded-full bg-orange-100 px-3 py-1 font-bold text-orange-700">
             {lot.discount_percent}% {t.discount}
           </span>
-          <span className="rounded-full bg-stone-100 px-3 py-1 dark:bg-stone-800">
+          <span className="rounded-full bg-stone-100 px-3 py-1">
             {lot.quantity} {t.detailQuantity}
           </span>
-          <span className="rounded-full bg-stone-100 px-3 py-1 dark:bg-stone-800">
+          <span className="rounded-full bg-stone-100 px-3 py-1">
             {t.detailExpires}:{" "}
             {new Date(lot.expires_at).toLocaleString(lang === "es" ? "es-CO" : "en-US")}
           </span>
@@ -158,14 +158,11 @@ export default function LotDetailView({ lotId, initialLot, initialPromos }: Prop
 
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           {user?.role === "business" ? (
-            <p className="rounded-3xl border border-stone-200 p-6 text-sm text-stone-600 dark:border-stone-800">
+            <p className="rounded-3xl border border-stone-200 p-6 text-sm text-stone-600">
               {t.detailBusinessCannotReserve}
             </p>
           ) : (
-            <form
-              onSubmit={reserve}
-              className="rounded-3xl border border-stone-200 p-6 dark:border-stone-800"
-            >
+            <form onSubmit={reserve} className="rounded-3xl border border-stone-200 p-6">
               <h2 className="mb-4 text-xl font-bold">{t.reserve}</h2>
               <label htmlFor="quantity" className="mb-1 block text-sm font-semibold">
                 {t.detailReserveQuantity}
@@ -177,7 +174,7 @@ export default function LotDetailView({ lotId, initialLot, initialPromos }: Prop
                 max={lot.quantity}
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
-                className="w-full rounded-xl border border-stone-300 px-4 py-3 dark:border-stone-700 dark:bg-stone-900"
+                className="w-full rounded-xl border border-stone-300 px-4 py-3"
               />
               <button
                 type="submit"
@@ -189,7 +186,7 @@ export default function LotDetailView({ lotId, initialLot, initialPromos }: Prop
             </form>
           )}
 
-          <div className="rounded-3xl border border-stone-200 p-6 dark:border-stone-800">
+          <div className="rounded-3xl border border-stone-200 p-6">
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-bold">{t.detailPromos}</h2>
               {token && user?.role === "business" ? (
@@ -205,10 +202,7 @@ export default function LotDetailView({ lotId, initialLot, initialPromos }: Prop
             {promos.length ? (
               <ul className="mt-4 space-y-3">
                 {promos.map((promo) => (
-                  <li
-                    key={promo.id}
-                    className="rounded-xl bg-stone-100 p-4 text-sm dark:bg-stone-800"
-                  >
+                  <li key={promo.id} className="rounded-xl bg-stone-100 p-4 text-sm">
                     <p className="font-semibold text-orange-600">{promo.variant}</p>
                     <p className="mt-1">{promo.text}</p>
                   </li>

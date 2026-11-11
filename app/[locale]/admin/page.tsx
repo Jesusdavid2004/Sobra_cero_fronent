@@ -55,10 +55,7 @@ export default function AdminPage() {
         <h2 className="mb-4 text-xl font-bold">{t.adminReport}</h2>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-5">
           {rows.map((row) => (
-            <div
-              key={row.label}
-              className="rounded-3xl border border-stone-200 p-5 text-center dark:border-stone-800"
-            >
+            <div key={row.label} className="rounded-3xl border border-stone-200 p-5 text-center">
               <p className="text-3xl font-black text-emerald-600">{row.value}</p>
               <p className="mt-1 text-xs uppercase tracking-wide text-stone-500">{row.label}</p>
             </div>
@@ -68,14 +65,11 @@ export default function AdminPage() {
         {forecast ? (
           <ul className="space-y-2">
             {forecast.series.map((point) => (
-              <li
-                key={point.day}
-                className="flex items-center gap-3 rounded-xl bg-stone-100 p-3 dark:bg-stone-800"
-              >
+              <li key={point.day} className="flex items-center gap-3 rounded-xl bg-stone-100 p-3">
                 <span className="w-24 text-sm font-semibold">
                   {t.adminDay} {point.day}
                 </span>
-                <div className="h-4 flex-1 rounded-full bg-stone-200 dark:bg-stone-700">
+                <div className="h-4 flex-1 rounded-full bg-stone-200">
                   <div
                     className="h-4 rounded-full bg-emerald-500"
                     style={{ width: `${Math.min(100, point.predicted_lots * 20)}%` }}

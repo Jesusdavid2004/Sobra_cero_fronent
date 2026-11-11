@@ -61,24 +61,24 @@ export default function LotsPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#f5f3ee] text-[#1f2a1f]">
+    <main className="min-h-screen bg-cf5f3ee text-c1f2a1f">
       <Header />
       <section className="mx-auto max-w-6xl px-6 pb-16 pt-8">
-        <div className="mb-8 rounded-[28px] bg-[#bfe09a] px-6 py-8 shadow-[0_7px_0_#3b422c] md:px-10">
-          <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#49633b]">
+        <div className="mb-8 rounded-[28px] bg-cbfe09a px-6 py-8 shadow-[0_7px_0_#3b422c] md:px-10">
+          <p className="text-sm font-bold uppercase tracking-[0.18em] text-c49633b">
             {t.marketEyebrow}
           </p>
           <h1 className="mt-2 text-3xl font-black md:text-5xl">{t.marketTitle}</h1>
-          <p className="mt-3 max-w-2xl text-[#34442d]">{t.marketDescription}</p>
+          <p className="mt-3 max-w-2xl text-c34442d">{t.marketDescription}</p>
         </div>
 
-        <div className="mb-6 grid gap-3 rounded-2xl border border-[#e3e5dc] bg-white p-4 sm:grid-cols-2">
+        <div className="mb-6 grid gap-3 rounded-2xl border border-ce3e5dc bg-white p-4 sm:grid-cols-2">
           <label className="text-sm font-bold">
             <span className="mb-2 block text-stone-600">{t.filterBusinesses}</span>
             <select
               value={businessType}
               onChange={(event) => setBusinessType(event.target.value)}
-              className="w-full rounded-xl border border-[#dfe4da] bg-[#fbfcf9] px-4 py-3"
+              className="w-full rounded-xl border border-cdfe4da bg-cfbfcf9 px-4 py-3"
             >
               <option value="">{t.filterAllBusinesses}</option>
               <option value="restaurant">{t.restaurant}</option>
@@ -90,7 +90,7 @@ export default function LotsPage() {
             <select
               value={category}
               onChange={(event) => setCategory(event.target.value)}
-              className="w-full rounded-xl border border-[#dfe4da] bg-[#fbfcf9] px-4 py-3"
+              className="w-full rounded-xl border border-cdfe4da bg-cfbfcf9 px-4 py-3"
             >
               <option value="">{t.filterAllCategories}</option>
               <option value="produce">{t.categoryProduce}</option>
@@ -113,7 +113,7 @@ export default function LotsPage() {
         ) : loading ? (
           <p className="py-8 text-stone-600">{t.marketLoading}</p>
         ) : lots.length === 0 ? (
-          <div className="rounded-2xl border border-[#d9dfce] bg-white/80 px-5 py-8 text-center">
+          <div className="rounded-2xl border border-cd9dfce bg-white/80 px-5 py-8 text-center">
             <p className="text-lg font-bold">
               {category || businessType ? t.filterNoResults : t.empty}
             </p>
@@ -128,7 +128,7 @@ export default function LotsPage() {
               return (
                 <article
                   key={lot.id}
-                  className="overflow-hidden rounded-[26px] border border-[#e3e5dc] bg-white shadow-[0_12px_30px_rgba(42,55,32,0.08)]"
+                  className="overflow-hidden rounded-[26px] border border-ce3e5dc bg-white shadow-[0_12px_30px_rgba(42,55,32,0.08)]"
                 >
                   {lot.image_url ? (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -136,37 +136,37 @@ export default function LotsPage() {
                   ) : (
                     <div
                       aria-hidden="true"
-                      className="flex h-52 items-center justify-center bg-[#eaf2df] text-6xl"
+                      className="flex h-52 items-center justify-center bg-ceaf2df text-6xl"
                     >
                       🥬
                     </div>
                   )}
                   <div className="p-5">
                     <div className="flex items-center justify-between gap-3">
-                      <span className="rounded-full bg-[#eaf4dd] px-3 py-1 text-sm font-bold text-[#426431]">
+                      <span className="rounded-full bg-ceaf4dd px-3 py-1 text-sm font-bold text-c426431">
                         {lot.discount_percent}% {t.discount}
                       </span>
                       <span className="text-sm text-stone-600">
                         {lot.quantity} {t.available}
                       </span>
                     </div>
-                    <div className="mt-3 flex flex-wrap gap-2 text-xs font-semibold text-[#627158]">
-                      <span className="rounded-full bg-[#f3f5ef] px-3 py-1">
+                    <div className="mt-3 flex flex-wrap gap-2 text-xs font-semibold text-c627158">
+                      <span className="rounded-full bg-cf3f5ef px-3 py-1">
                         {categoryTranslations[lot.category] ?? lot.category}
                       </span>
-                      <span className="rounded-full bg-[#f3f5ef] px-3 py-1">
+                      <span className="rounded-full bg-cf3f5ef px-3 py-1">
                         {lot.business_type === "restaurant" ? t.restaurant : t.supermarket}
                       </span>
                     </div>
                     <h2 className="mt-4 text-xl font-black">{lot.title}</h2>
                     <p className="mt-2 min-h-10 text-sm text-stone-600">{lot.description}</p>
                     {lotPromotions.length ? (
-                      <p className="mt-3 rounded-xl bg-[#f4f7f0] p-3 text-sm italic leading-6 text-[#42533d]">
+                      <p className="mt-3 rounded-xl bg-cf4f7f0 p-3 text-sm italic leading-6 text-c42533d">
                         “{lotPromotions[0].text}”
                       </p>
                     ) : null}
                     <div className="mt-4 flex items-baseline gap-2">
-                      <span className="text-2xl font-black text-[#426431]">
+                      <span className="text-2xl font-black text-c426431">
                         {currency.format(currentPrice / 100)}
                       </span>
                       <span className="text-sm text-stone-400 line-through">
@@ -175,7 +175,7 @@ export default function LotsPage() {
                     </div>
                     <Link
                       href={`/lots/${lot.id}`}
-                      className="mt-5 block rounded-xl bg-[#33452b] px-4 py-3 text-center font-bold text-white transition hover:bg-[#263820]"
+                      className="mt-5 block rounded-xl bg-c33452b px-4 py-3 text-center font-bold text-white transition hover:bg-c263820"
                     >
                       {t.viewAndReserve}
                     </Link>

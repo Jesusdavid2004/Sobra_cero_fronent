@@ -119,7 +119,7 @@ function NewLotForm() {
               onChange={(e) => {
                 setForm({ ...form, shopId: e.target.value, productId: "" });
               }}
-              className="w-full rounded-xl border border-stone-300 px-4 py-3 dark:border-stone-700 dark:bg-stone-900"
+              className="w-full rounded-xl border border-stone-300 px-4 py-3"
             >
               <option value="">{t.lotShop}…</option>
               {shops.map((shop) => (
@@ -138,7 +138,7 @@ function NewLotForm() {
               required
               value={form.productId}
               onChange={(e) => setForm({ ...form, productId: e.target.value })}
-              className="w-full rounded-xl border border-stone-300 px-4 py-3 dark:border-stone-700 dark:bg-stone-900"
+              className="w-full rounded-xl border border-stone-300 px-4 py-3"
             >
               <option value="">{t.lotProduct}…</option>
               {products.map((product) => (
@@ -153,14 +153,14 @@ function NewLotForm() {
             value={form.title}
             onChange={(e) => setForm({ ...form, title: e.target.value })}
             placeholder={t.lotName}
-            className="w-full rounded-xl border border-stone-300 px-4 py-3 dark:border-stone-700 dark:bg-stone-900"
+            className="w-full rounded-xl border border-stone-300 px-4 py-3"
           />
           <textarea
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
             placeholder={t.lotDescription}
             rows={3}
-            className="w-full rounded-xl border border-stone-300 px-4 py-3 dark:border-stone-700 dark:bg-stone-900"
+            className="w-full rounded-xl border border-stone-300 px-4 py-3"
           />
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             <input
@@ -171,7 +171,7 @@ function NewLotForm() {
               onChange={(e) => setForm({ ...form, quantity: e.target.value })}
               placeholder={t.lotQuantity}
               aria-label={t.lotQuantity}
-              className="w-full rounded-xl border border-stone-300 px-4 py-3 dark:border-stone-700 dark:bg-stone-900"
+              className="w-full rounded-xl border border-stone-300 px-4 py-3"
             />
             <input
               required
@@ -181,7 +181,7 @@ function NewLotForm() {
               onChange={(e) => setForm({ ...form, original_price_cents: e.target.value })}
               placeholder={t.lotPrice}
               aria-label={t.lotPrice}
-              className="w-full rounded-xl border border-stone-300 px-4 py-3 dark:border-stone-700 dark:bg-stone-900"
+              className="w-full rounded-xl border border-stone-300 px-4 py-3"
             />
             <input
               required
@@ -192,7 +192,7 @@ function NewLotForm() {
               onChange={(e) => setForm({ ...form, discount_percent: e.target.value })}
               placeholder={t.lotDiscount}
               aria-label={t.lotDiscount}
-              className="w-full rounded-xl border border-stone-300 px-4 py-3 dark:border-stone-700 dark:bg-stone-900"
+              className="w-full rounded-xl border border-stone-300 px-4 py-3"
             />
             <input
               required
@@ -200,7 +200,7 @@ function NewLotForm() {
               value={form.expires_at}
               onChange={(e) => setForm({ ...form, expires_at: e.target.value })}
               aria-label={t.lotExpires}
-              className="w-full rounded-xl border border-stone-300 px-4 py-3 dark:border-stone-700 dark:bg-stone-900"
+              className="w-full rounded-xl border border-stone-300 px-4 py-3"
             />
           </div>
           <div>
@@ -213,7 +213,7 @@ function NewLotForm() {
               accept="image/jpeg,image/png,image/webp"
               capture="environment"
               onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-              className="w-full rounded-xl border border-stone-300 px-4 py-3 dark:border-stone-700 dark:bg-stone-900"
+              className="w-full rounded-xl border border-stone-300 px-4 py-3"
             />
             <p className="mt-1 text-xs text-stone-500">{t.lotTakePhoto}</p>
           </div>

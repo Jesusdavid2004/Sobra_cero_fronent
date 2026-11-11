@@ -14,10 +14,10 @@ type Props = {
 };
 
 const ACTION_STYLES: Record<RescuePlan["action"], string> = {
-  keep_offer: "bg-[#e6efd8] text-[#3c5a2c]",
-  apply_discount_rule: "bg-[#fde8c8] text-[#8a4b0f]",
-  prepare_donation_offer: "bg-[#f5dcec] text-[#8a2f64]",
-  insufficient_history: "bg-[#ecebe4] text-[#5b6257]",
+  keep_offer: "bg-ce6efd8 text-c3c5a2c",
+  apply_discount_rule: "bg-cfde8c8 text-c8a4b0f",
+  prepare_donation_offer: "bg-cf5dcec text-c8a2f64",
+  insufficient_history: "bg-cecebe4 text-c5b6257",
 };
 
 const STATUS_KEYS: Record<RescuePlan["status"], string> = {
@@ -103,15 +103,15 @@ export default function RescuePlanPanel({ shopId, lots, t, locale }: Props) {
   return (
     <section
       aria-labelledby="rescue-title"
-      className="mt-6 rounded-[28px] border-2 border-[#30442a]/15 bg-[#fbfaf3] p-5 md:p-7"
+      className="mt-6 rounded-[28px] border-2 border-c30442a/15 bg-cfbfaf3 p-5 md:p-7"
     >
-      <p className="text-sm font-bold uppercase tracking-[0.12em] text-[#66804f]">
+      <p className="text-sm font-bold uppercase tracking-[0.12em] text-c66804f">
         {t.rescueEyebrow}
       </p>
       <h2 id="rescue-title" className="mt-1 text-2xl font-black">
         {t.rescueTitle}
       </h2>
-      <p className="mt-1 max-w-2xl text-sm text-[#5b6257]">{t.rescueDescription}</p>
+      <p className="mt-1 max-w-2xl text-sm text-c5b6257">{t.rescueDescription}</p>
 
       {lots.length ? (
         <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label={t.rescueAnalyzeLot}>
@@ -121,7 +121,7 @@ export default function RescuePlanPanel({ shopId, lots, t, locale }: Props) {
               type="button"
               disabled={busyKey !== null}
               onClick={() => run(`gen-${lot.lotId}`, () => api.generateRescuePlan(lot.lotId))}
-              className="rounded-full border-2 border-[#30442a] bg-[#c7e49d] px-4 py-2 text-sm font-bold text-[#1f2a1f] transition hover:-translate-y-0.5 hover:bg-[#d4ecb0] disabled:cursor-not-allowed disabled:opacity-60"
+              className="rounded-full border-2 border-c30442a bg-cc7e49d px-4 py-2 text-sm font-bold text-c1f2a1f transition hover:-translate-y-0.5 hover:bg-cd4ecb0 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {busyKey === `gen-${lot.lotId}`
                 ? t.rescueAnalyzing
@@ -138,7 +138,7 @@ export default function RescuePlanPanel({ shopId, lots, t, locale }: Props) {
       ) : null}
 
       {loading ? (
-        <p className="py-8 text-center text-[#5b6257]" role="status">
+        <p className="py-8 text-center text-c5b6257" role="status">
           {t.rescueLoading}
         </p>
       ) : visible.length ? (
@@ -151,7 +151,7 @@ export default function RescuePlanPanel({ shopId, lots, t, locale }: Props) {
             return (
               <li
                 key={plan.id}
-                className="flex flex-col rounded-3xl border border-[#e2e5d9] bg-white p-5 shadow-[0_4px_0_#e2e5d9]"
+                className="flex flex-col rounded-3xl border border-ce2e5d9 bg-white p-5 shadow-[0_4px_0_#e2e5d9]"
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h3 className="text-lg font-black">{lotName(plan.lot_id)}</h3>
@@ -161,32 +161,32 @@ export default function RescuePlanPanel({ shopId, lots, t, locale }: Props) {
                     {t[ACTION_KEYS[plan.action]]}
                   </span>
                 </div>
-                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-[#788475]">
+                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-c788475">
                   {t[STATUS_KEYS[plan.status]]}
                 </p>
 
                 {plan.expected_sales !== null ? (
                   <div className="mt-4">
                     <div
-                      className="flex h-3 overflow-hidden rounded-full bg-[#f4c58a]"
+                      className="flex h-3 overflow-hidden rounded-full bg-cf4c58a"
                       role="img"
                       aria-label={t.rescueBarLabel
                         .replace("{expected}", number.format(expected))
                         .replace("{surplus}", number.format(surplus))}
                     >
-                      <div className="bg-[#5a803f]" style={{ width: `${soldShare}%` }} />
+                      <div className="bg-c5a803f" style={{ width: `${soldShare}%` }} />
                     </div>
                     <dl className="mt-3 grid grid-cols-3 gap-2 text-center">
-                      <div className="rounded-2xl bg-[#f6f8f3] p-2">
-                        <dt className="text-[11px] text-[#788475]">{t.rescueAvailable}</dt>
+                      <div className="rounded-2xl bg-cf6f8f3 p-2">
+                        <dt className="text-[11px] text-c788475">{t.rescueAvailable}</dt>
                         <dd className="text-lg font-black">{plan.available_quantity}</dd>
                       </div>
-                      <div className="rounded-2xl bg-[#e6efd8] p-2">
-                        <dt className="text-[11px] text-[#788475]">{t.rescueExpectedSales}</dt>
+                      <div className="rounded-2xl bg-ce6efd8 p-2">
+                        <dt className="text-[11px] text-c788475">{t.rescueExpectedSales}</dt>
                         <dd className="text-lg font-black">{number.format(expected)}</dd>
                       </div>
-                      <div className="rounded-2xl bg-[#fde8c8] p-2">
-                        <dt className="text-[11px] text-[#788475]">{t.rescueSurplus}</dt>
+                      <div className="rounded-2xl bg-cfde8c8 p-2">
+                        <dt className="text-[11px] text-c788475">{t.rescueSurplus}</dt>
                         <dd className="text-lg font-black">{number.format(surplus)}</dd>
                       </div>
                     </dl>
@@ -194,7 +194,7 @@ export default function RescuePlanPanel({ shopId, lots, t, locale }: Props) {
                 ) : null}
 
                 {plan.proposed_discount_percent !== null ? (
-                  <p className="mt-3 text-sm font-bold text-[#8a4b0f]">
+                  <p className="mt-3 text-sm font-bold text-c8a4b0f">
                     {t.rescueProposedDiscount.replace(
                       "{percent}",
                       String(plan.proposed_discount_percent),
@@ -202,15 +202,15 @@ export default function RescuePlanPanel({ shopId, lots, t, locale }: Props) {
                   </p>
                 ) : null}
 
-                <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-[#465044]">
+                <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-c465044">
                   {plan.reasons.map((reason) => (
                     <li key={reason}>{t[`rescueReason_${reason}`] ?? reason}</li>
                   ))}
                 </ul>
 
                 {explanations[plan.id] ? (
-                  <p className="mt-3 rounded-2xl bg-[#eef5e1] px-4 py-3 text-sm text-[#2f4a22]">
-                    <span className="mr-2 rounded-full bg-[#30442a] px-2 py-0.5 text-[10px] font-bold uppercase text-white">
+                  <p className="mt-3 rounded-2xl bg-ceef5e1 px-4 py-3 text-sm text-c2f4a22">
+                    <span className="mr-2 rounded-full bg-c30442a px-2 py-0.5 text-[10px] font-bold uppercase text-white">
                       {t.rescueAiBadge}
                     </span>
                     {explanations[plan.id]}
@@ -220,13 +220,13 @@ export default function RescuePlanPanel({ shopId, lots, t, locale }: Props) {
                     type="button"
                     disabled={busyKey !== null}
                     onClick={() => explain(plan.id)}
-                    className="mt-3 self-start rounded-full border border-[#30442a]/40 px-4 py-1.5 text-xs font-bold text-[#30442a] hover:bg-[#f0f3ec] disabled:opacity-60"
+                    className="mt-3 self-start rounded-full border border-c30442a/40 px-4 py-1.5 text-xs font-bold text-c30442a hover:bg-cf0f3ec disabled:opacity-60"
                   >
                     {busyKey === `ex-${plan.id}` ? t.rescueExplaining : t.rescueExplain}
                   </button>
                 ) : null}
 
-                <p className="mt-3 text-xs text-[#788475]">
+                <p className="mt-3 text-xs text-c788475">
                   {t.rescueMeta
                     .replace("{points}", String(plan.data_points))
                     .replace("{hours}", number.format(plan.horizon_hours))
@@ -239,7 +239,7 @@ export default function RescuePlanPanel({ shopId, lots, t, locale }: Props) {
                       type="button"
                       disabled={busyKey !== null}
                       onClick={() => run(`ok-${plan.id}`, () => api.approveRescuePlan(plan.id))}
-                      className="rounded-full bg-[#30442a] px-5 py-2.5 text-sm font-bold text-white shadow-[0_4px_0_#1e2d1a] transition hover:bg-[#253820] disabled:opacity-60"
+                      className="rounded-full bg-c30442a px-5 py-2.5 text-sm font-bold text-white shadow-[0_4px_0_#1e2d1a] transition hover:bg-c253820 disabled:opacity-60"
                     >
                       {t.rescueApprove}
                     </button>
@@ -247,7 +247,7 @@ export default function RescuePlanPanel({ shopId, lots, t, locale }: Props) {
                       type="button"
                       disabled={busyKey !== null}
                       onClick={() => run(`no-${plan.id}`, () => api.rejectRescuePlan(plan.id))}
-                      className="rounded-full border-2 border-[#30442a] px-5 py-2.5 text-sm font-bold text-[#30442a] transition hover:bg-[#f0f3ec] disabled:opacity-60"
+                      className="rounded-full border-2 border-c30442a px-5 py-2.5 text-sm font-bold text-c30442a transition hover:bg-cf0f3ec disabled:opacity-60"
                     >
                       {t.rescueReject}
                     </button>
@@ -258,10 +258,10 @@ export default function RescuePlanPanel({ shopId, lots, t, locale }: Props) {
           })}
         </ul>
       ) : (
-        <p className="py-8 text-center text-[#5b6257]">{t.rescueEmpty}</p>
+        <p className="py-8 text-center text-c5b6257">{t.rescueEmpty}</p>
       )}
 
-      <p className="mt-5 rounded-2xl bg-[#f0f3ec] px-4 py-3 text-xs text-[#5b6257]">
+      <p className="mt-5 rounded-2xl bg-cf0f3ec px-4 py-3 text-xs text-c5b6257">
         {t.rescueDisclaimer}
       </p>
     </section>

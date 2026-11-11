@@ -181,17 +181,17 @@ export default function ShopPage() {
   const highRiskLots = risk.filter((item) => item.risk_score >= 70).length;
 
   return (
-    <main className="min-h-screen bg-[#f5f6f1] text-[#1e2b22]">
+    <main className="min-h-screen bg-cf5f6f1 text-c1e2b22">
       <Header />
       <section className="mx-auto max-w-7xl px-5 pb-14 pt-4 md:px-8">
-        <div className="relative overflow-hidden rounded-[32px] bg-[#203a2c] px-6 py-8 text-white md:px-10 md:py-10">
+        <div className="relative overflow-hidden rounded-[32px] bg-c203a2c px-6 py-8 text-white md:px-10 md:py-10">
           <div
             aria-hidden="true"
-            className="absolute -right-16 -top-24 h-72 w-72 rounded-full border-[36px] border-[#a9ce81]/15"
+            className="absolute -right-16 -top-24 h-72 w-72 rounded-full border-[36px] border-ca9ce81/15"
           />
           <div className="relative flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">
-              <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#c7e5a8]">
+              <p className="text-sm font-bold uppercase tracking-[0.18em] text-cc7e5a8">
                 {t.title} / {t.shop}
               </p>
               <h1 className="mt-3 text-3xl font-black tracking-tight md:text-5xl">
@@ -209,7 +209,7 @@ export default function ShopPage() {
               {selectedShopId ? (
                 <Link
                   href={`/lots/new?shop=${selectedShopId}`}
-                  className="rounded-full bg-[#d1eeac] px-5 py-3 text-sm font-black text-[#203a2c] transition hover:bg-white"
+                  className="rounded-full bg-cd1eeac px-5 py-3 text-sm font-black text-c203a2c transition hover:bg-white"
                 >
                   + {t.newLot}
                 </Link>
@@ -224,10 +224,7 @@ export default function ShopPage() {
           </p>
         ) : null}
         {notice ? (
-          <p
-            role="status"
-            className="mt-5 rounded-2xl bg-[#e8f4db] px-5 py-4 text-sm text-[#365d2f]"
-          >
+          <p role="status" className="mt-5 rounded-2xl bg-ce8f4db px-5 py-4 text-sm text-c365d2f">
             {notice}
           </p>
         ) : null}
@@ -239,10 +236,10 @@ export default function ShopPage() {
         ) : (
           <>
             {!shops.length ? (
-              <div className="mt-7 rounded-3xl border border-[#e0e5da] bg-white p-6 md:p-8">
+              <div className="mt-7 rounded-3xl border border-ce0e5da bg-white p-6 md:p-8">
                 <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
                   <div className="self-center">
-                    <p className="text-sm font-bold uppercase tracking-[0.15em] text-[#66804f]">
+                    <p className="text-sm font-bold uppercase tracking-[0.15em] text-c66804f">
                       {t.title}
                     </p>
                     <h2 className="mt-3 text-3xl font-black">{t.dashboardCreateWorkspace}</h2>
@@ -274,7 +271,7 @@ export default function ShopPage() {
                         setSelectedShopId(event.target.value);
                         setProductForm((current) => ({ ...current, shopId: event.target.value }));
                       }}
-                      className="min-w-48 rounded-xl border border-[#d8ded2] bg-white px-4 py-3"
+                      className="min-w-48 rounded-xl border border-cd8ded2 bg-white px-4 py-3"
                     >
                       {shops.map((shop) => (
                         <option key={shop.id} value={shop.id}>
@@ -308,15 +305,15 @@ export default function ShopPage() {
                 </div>
 
                 <div className="mt-6 grid gap-6 xl:grid-cols-[1.5fr_0.8fr]">
-                  <section className="rounded-3xl border border-[#e0e5da] bg-white p-5 md:p-7">
+                  <section className="rounded-3xl border border-ce0e5da bg-white p-5 md:p-7">
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <div>
-                        <p className="text-sm font-bold uppercase tracking-[0.12em] text-[#788475]">
+                        <p className="text-sm font-bold uppercase tracking-[0.12em] text-c788475">
                           {selectedShop?.name}
                         </p>
                         <h2 className="mt-1 text-2xl font-black">{t.dashboardRiskTitle}</h2>
                       </div>
-                      <span className="rounded-full bg-[#f0f3ec] px-3 py-1.5 text-xs font-bold text-[#5e6959]">
+                      <span className="rounded-full bg-cf0f3ec px-3 py-1.5 text-xs font-bold text-c5e6959">
                         {t.dashboardSalesHistory}
                       </span>
                     </div>
@@ -334,21 +331,21 @@ export default function ShopPage() {
                                 : t.dashboardRiskLow;
                           const levelStyle =
                             item.risk_level === "high"
-                              ? "bg-[#fff0e8] text-[#a84d2c]"
+                              ? "bg-cfff0e8 text-ca84d2c"
                               : item.risk_level === "medium"
-                                ? "bg-[#fff7df] text-[#87620c]"
-                                : "bg-[#e8f4db] text-[#42643a]";
+                                ? "bg-cfff7df text-c87620c"
+                                : "bg-ce8f4db text-c42643a";
                           const barStyle =
                             item.risk_level === "high"
-                              ? "bg-[#da754e]"
+                              ? "bg-cda754e"
                               : item.risk_level === "medium"
-                                ? "bg-[#d5a83d]"
-                                : "bg-[#76a65c]";
+                                ? "bg-cd5a83d"
+                                : "bg-c76a65c";
 
                           return (
                             <article
                               key={item.lot_id}
-                              className="rounded-2xl border border-[#edf0e9] p-4 md:p-5"
+                              className="rounded-2xl border border-cedf0e9 p-4 md:p-5"
                             >
                               <div className="flex flex-wrap items-start justify-between gap-3">
                                 <div>
@@ -368,7 +365,7 @@ export default function ShopPage() {
                                 </span>
                               </div>
                               <div
-                                className="mt-4 h-2 overflow-hidden rounded-full bg-[#edf0e9]"
+                                className="mt-4 h-2 overflow-hidden rounded-full bg-cedf0e9"
                                 role="meter"
                                 aria-label={levelText}
                                 aria-valuemin={0}
@@ -388,11 +385,11 @@ export default function ShopPage() {
                                   {formatter.format(item.units_at_risk)} / {item.current_stock}
                                 </span>
                               </div>
-                              <div className="mt-4 rounded-xl bg-[#f5f7f2] p-4">
-                                <p className="text-xs font-black uppercase tracking-[0.1em] text-[#6c7b62]">
+                              <div className="mt-4 rounded-xl bg-cf5f7f2 p-4">
+                                <p className="text-xs font-black uppercase tracking-[0.1em] text-c6c7b62">
                                   {t.dashboardRecommendation}
                                 </p>
-                                <p className="mt-1 text-sm leading-6 text-[#3d493c]">
+                                <p className="mt-1 text-sm leading-6 text-c3d493c">
                                   {item.recommendation}
                                 </p>
                                 <p className="mt-2 text-xs text-stone-500">
@@ -407,8 +404,8 @@ export default function ShopPage() {
                         })}
                       </div>
                     ) : (
-                      <div className="mt-5 rounded-2xl bg-[#f6f8f3] px-5 py-8 text-center">
-                        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[#e4eddc] text-2xl text-[#557148]">
+                      <div className="mt-5 rounded-2xl bg-cf6f8f3 px-5 py-8 text-center">
+                        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-ce4eddc text-2xl text-c557148">
                           ↗
                         </div>
                         <p
@@ -429,7 +426,7 @@ export default function ShopPage() {
                             type="button"
                             onClick={loadSampleHistory}
                             disabled={sampleLoading}
-                            className="mt-4 rounded-full bg-[#30442a] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#253820] disabled:opacity-60"
+                            className="mt-4 rounded-full bg-c30442a px-5 py-3 text-sm font-bold text-white transition hover:bg-c253820 disabled:opacity-60"
                           >
                             {sampleLoading ? t.dashboardLoadingRisk : t.dashboardSampleData}
                           </button>
@@ -445,13 +442,13 @@ export default function ShopPage() {
 
                   <aside className="space-y-5">
                     {selectedShop ? (
-                      <div className="rounded-3xl border border-[#e0e5da] bg-white p-5 md:p-6">
+                      <div className="rounded-3xl border border-ce0e5da bg-white p-5 md:p-6">
                         <h2 className="text-lg font-black">{t.dashboardQuickActions}</h2>
                         <button
                           type="button"
                           onClick={loadSampleHistory}
                           disabled={sampleLoading}
-                          className="mt-4 w-full rounded-2xl bg-[#e9f1e1] px-4 py-3 text-left text-sm font-bold text-[#385333] transition hover:bg-[#dceacb] disabled:opacity-60"
+                          className="mt-4 w-full rounded-2xl bg-ce9f1e1 px-4 py-3 text-left text-sm font-bold text-c385333 transition hover:bg-cdceacb disabled:opacity-60"
                         >
                           {sampleLoading ? t.dashboardLoadingRisk : t.dashboardSampleAction}
                         </button>
@@ -460,7 +457,7 @@ export default function ShopPage() {
                         </p>
                         <Link
                           href={`/lots/new?shop=${selectedShop.id}`}
-                          className="mt-4 block w-full rounded-2xl bg-[#203a2c] px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-[#2e513d]"
+                          className="mt-4 block w-full rounded-2xl bg-c203a2c px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-c2e513d"
                         >
                           + {t.newLot}
                         </Link>
@@ -495,10 +492,10 @@ export default function ShopPage() {
                   />
                 ) : null}
 
-                <section className="mt-6 rounded-3xl border border-[#e0e5da] bg-white p-5 md:p-7">
+                <section className="mt-6 rounded-3xl border border-ce0e5da bg-white p-5 md:p-7">
                   <div className="flex flex-wrap items-end justify-between gap-4">
                     <div>
-                      <p className="text-sm font-bold uppercase tracking-[0.12em] text-[#788475]">
+                      <p className="text-sm font-bold uppercase tracking-[0.12em] text-c788475">
                         {t.myShops}
                       </p>
                       <h2 className="mt-1 text-2xl font-black">{selectedShop?.name}</h2>
@@ -506,7 +503,7 @@ export default function ShopPage() {
                     {selectedShop ? (
                       <Link
                         href={`/lots/new?shop=${selectedShop.id}`}
-                        className="rounded-full bg-[#203a2c] px-5 py-3 text-sm font-bold text-white hover:bg-[#2e513d]"
+                        className="rounded-full bg-c203a2c px-5 py-3 text-sm font-bold text-white hover:bg-c2e513d"
                       >
                         + {t.newLot}
                       </Link>
@@ -515,7 +512,7 @@ export default function ShopPage() {
                   {selectedShop && products[selectedShop.id]?.length ? (
                     <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                       {products[selectedShop.id].map((product) => (
-                        <article key={product.id} className="rounded-2xl bg-[#f6f8f3] p-4">
+                        <article key={product.id} className="rounded-2xl bg-cf6f8f3 p-4">
                           <p className="font-bold">{product.name}</p>
                           <p className="mt-1 text-sm text-stone-600">{product.description}</p>
                         </article>
@@ -572,7 +569,7 @@ function PickupConfirmationForm({ t }: { t: Record<string, string> }) {
   };
 
   return (
-    <section className="mt-6 rounded-3xl border border-[#e0e5da] bg-white p-5 md:p-7">
+    <section className="mt-6 rounded-3xl border border-ce0e5da bg-white p-5 md:p-7">
       <h2 className="text-xl font-black">{t.pickupTitle}</h2>
       <p className="mt-2 text-sm text-stone-600">{t.pickupDescription}</p>
       <form onSubmit={submit} className="mt-4 grid gap-3 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
@@ -640,7 +637,7 @@ function ShopForm({
   t: Record<string, string>;
 }) {
   return (
-    <section className="rounded-3xl border border-[#e0e5da] bg-white p-5 md:p-6">
+    <section className="rounded-3xl border border-ce0e5da bg-white p-5 md:p-6">
       <h2 className="text-lg font-black">{title}</h2>
       <form onSubmit={onSubmit} className="mt-4 space-y-3">
         <select
@@ -653,7 +650,7 @@ function ShopForm({
             })
           }
           aria-label={t.businessType}
-          className="w-full rounded-xl border border-[#dfe4da] bg-[#fbfcf9] px-4 py-3 text-sm"
+          className="w-full rounded-xl border border-cdfe4da bg-cfbfcf9 px-4 py-3 text-sm"
         >
           <option value="restaurant">{t.restaurant}</option>
           <option value="supermarket">{t.supermarket}</option>
@@ -665,14 +662,14 @@ function ShopForm({
           onChange={(event) => setForm({ ...form, name: event.target.value })}
           placeholder={t.shopName}
           aria-label={t.shopName}
-          className="w-full rounded-xl border border-[#dfe4da] bg-[#fbfcf9] px-4 py-3 text-sm"
+          className="w-full rounded-xl border border-cdfe4da bg-cfbfcf9 px-4 py-3 text-sm"
         />
         <input
           value={form.description}
           onChange={(event) => setForm({ ...form, description: event.target.value })}
           placeholder={t.shopDescription}
           aria-label={t.shopDescription}
-          className="w-full rounded-xl border border-[#dfe4da] bg-[#fbfcf9] px-4 py-3 text-sm"
+          className="w-full rounded-xl border border-cdfe4da bg-cfbfcf9 px-4 py-3 text-sm"
         />
         <div className="grid grid-cols-2 gap-3">
           <input
@@ -685,7 +682,7 @@ function ShopForm({
             onChange={(event) => setForm({ ...form, latitude: event.target.value })}
             placeholder={t.shopLatitude}
             aria-label={t.shopLatitude}
-            className="w-full rounded-xl border border-[#dfe4da] bg-[#fbfcf9] px-4 py-3 text-sm"
+            className="w-full rounded-xl border border-cdfe4da bg-cfbfcf9 px-4 py-3 text-sm"
           />
           <input
             required
@@ -697,10 +694,10 @@ function ShopForm({
             onChange={(event) => setForm({ ...form, longitude: event.target.value })}
             placeholder={t.shopLongitude}
             aria-label={t.shopLongitude}
-            className="w-full rounded-xl border border-[#dfe4da] bg-[#fbfcf9] px-4 py-3 text-sm"
+            className="w-full rounded-xl border border-cdfe4da bg-cfbfcf9 px-4 py-3 text-sm"
           />
         </div>
-        <button className="w-full rounded-xl bg-[#203a2c] px-4 py-3 text-sm font-bold text-white transition hover:bg-[#2e513d]">
+        <button className="w-full rounded-xl bg-c203a2c px-4 py-3 text-sm font-bold text-white transition hover:bg-c2e513d">
           {t.shopSubmit}
         </button>
       </form>
@@ -724,7 +721,7 @@ function ProductForm({
   t: Record<string, string>;
 }) {
   return (
-    <section className="rounded-3xl border border-[#e0e5da] bg-white p-5 md:p-6">
+    <section className="rounded-3xl border border-ce0e5da bg-white p-5 md:p-6">
       <h2 className="text-lg font-black">{title}</h2>
       <form onSubmit={onSubmit} className="mt-4 space-y-3">
         <select
@@ -732,7 +729,7 @@ function ProductForm({
           value={form.shopId}
           onChange={(event) => setForm({ ...form, shopId: event.target.value })}
           aria-label={t.productShop}
-          className="w-full rounded-xl border border-[#dfe4da] bg-[#fbfcf9] px-4 py-3 text-sm"
+          className="w-full rounded-xl border border-cdfe4da bg-cfbfcf9 px-4 py-3 text-sm"
         >
           <option value="">{t.lotShop}</option>
           {shops.map((shop) => (
@@ -748,14 +745,14 @@ function ProductForm({
           onChange={(event) => setForm({ ...form, name: event.target.value })}
           placeholder={t.productName}
           aria-label={t.productName}
-          className="w-full rounded-xl border border-[#dfe4da] bg-[#fbfcf9] px-4 py-3 text-sm"
+          className="w-full rounded-xl border border-cdfe4da bg-cfbfcf9 px-4 py-3 text-sm"
         />
         <select
           required
           value={form.category}
           onChange={(event) => setForm({ ...form, category: event.target.value })}
           aria-label={t.productCategory}
-          className="w-full rounded-xl border border-[#dfe4da] bg-[#fbfcf9] px-4 py-3 text-sm"
+          className="w-full rounded-xl border border-cdfe4da bg-cfbfcf9 px-4 py-3 text-sm"
         >
           <option value="produce">{t.categoryProduce}</option>
           <option value="bakery">{t.categoryBakery}</option>
@@ -770,9 +767,9 @@ function ProductForm({
           onChange={(event) => setForm({ ...form, description: event.target.value })}
           placeholder={t.productDescription}
           aria-label={t.productDescription}
-          className="w-full rounded-xl border border-[#dfe4da] bg-[#fbfcf9] px-4 py-3 text-sm"
+          className="w-full rounded-xl border border-cdfe4da bg-cfbfcf9 px-4 py-3 text-sm"
         />
-        <button className="w-full rounded-xl border border-[#cfdac6] bg-[#f4f7f1] px-4 py-3 text-sm font-bold text-[#30442a] transition hover:bg-[#e9f1e1]">
+        <button className="w-full rounded-xl border border-ccfdac6 bg-cf4f7f1 px-4 py-3 text-sm font-bold text-c30442a transition hover:bg-ce9f1e1">
           {t.productSubmit}
         </button>
       </form>
@@ -794,13 +791,13 @@ function MetricCard({
   note?: string;
 }) {
   const accentClass = {
-    mint: "bg-[#e8f2df] text-[#45643d]",
-    peach: "bg-[#fff0e8] text-[#a84d2c]",
-    lavender: "bg-[#efedf8] text-[#5e568d]",
+    mint: "bg-ce8f2df text-c45643d",
+    peach: "bg-cfff0e8 text-ca84d2c",
+    lavender: "bg-cefedf8 text-c5e568d",
   }[accent];
 
   return (
-    <article className="rounded-3xl border border-[#e0e5da] bg-white p-5">
+    <article className="rounded-3xl border border-ce0e5da bg-white p-5">
       <div className="flex items-start justify-between gap-4">
         <p className="text-sm font-semibold text-stone-600">{label}</p>
         <span

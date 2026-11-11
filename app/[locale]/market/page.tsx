@@ -44,24 +44,24 @@ export default async function MarketPage({
     <main className="min-h-screen">
       <Header />
       <section className="mx-auto max-w-6xl px-6 pb-16 pt-8">
-        <div className="mb-8 rounded-[28px] bg-[#bfe09a] px-6 py-8 shadow-[0_7px_0_#3b422c] md:px-10">
-          <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#49633b]">
+        <div className="mb-8 rounded-[28px] bg-cbfe09a px-6 py-8 shadow-[0_7px_0_#3b422c] md:px-10">
+          <p className="text-sm font-bold uppercase tracking-[0.18em] text-c49633b">
             {t("marketEyebrow")}
           </p>
           <h1 className="mt-2 text-3xl font-black md:text-5xl">{t("marketTitle")}</h1>
-          <p className="mt-3 max-w-2xl text-[#34442d]">{t("marketDescription")}</p>
+          <p className="mt-3 max-w-2xl text-c34442d">{t("marketDescription")}</p>
         </div>
 
         <form
           method="get"
-          className="mb-6 grid gap-3 rounded-2xl border border-[#e3e5dc] bg-white p-4 sm:grid-cols-[1fr_1fr_auto]"
+          className="mb-6 grid gap-3 rounded-2xl border border-ce3e5dc bg-white p-4 sm:grid-cols-[1fr_1fr_auto]"
         >
           <label className="text-sm font-bold">
             <span className="mb-2 block text-stone-600">{t("filterBusinesses")}</span>
             <select
               name="business_type"
               defaultValue={businessType}
-              className="w-full rounded-xl border border-[#dfe4da] bg-[#fbfcf9] px-4 py-3"
+              className="w-full rounded-xl border border-cdfe4da bg-cfbfcf9 px-4 py-3"
             >
               <option value="">{t("filterAllBusinesses")}</option>
               {BUSINESS_TYPES.map((type) => (
@@ -76,7 +76,7 @@ export default async function MarketPage({
             <select
               name="category"
               defaultValue={category}
-              className="w-full rounded-xl border border-[#dfe4da] bg-[#fbfcf9] px-4 py-3"
+              className="w-full rounded-xl border border-cdfe4da bg-cfbfcf9 px-4 py-3"
             >
               <option value="">{t("filterAllCategories")}</option>
               {CATEGORIES.map((item) => (
@@ -88,7 +88,7 @@ export default async function MarketPage({
           </label>
           <button
             type="submit"
-            className="self-end rounded-xl bg-[#30442a] px-6 py-3 font-bold text-white hover:bg-[#253820]"
+            className="self-end rounded-xl bg-c30442a px-6 py-3 font-bold text-white hover:bg-c253820"
           >
             {t("marketApplyFilters")}
           </button>
@@ -122,7 +122,7 @@ async function LotsGrid({ locale, category, businessType }: SectionProps) {
   }
   if (lots.length === 0) {
     return (
-      <div className="rounded-2xl border border-[#d9dfce] bg-white/80 px-5 py-8 text-center">
+      <div className="rounded-2xl border border-cd9dfce bg-white/80 px-5 py-8 text-center">
         <p className="text-lg font-bold">
           {category || businessType ? t("filterNoResults") : t("empty")}
         </p>
@@ -176,9 +176,9 @@ async function PromotionHighlights({ locale, category, businessType }: SectionPr
           {highlights.map(({ lot, text }) => (
             <li
               key={lot.id}
-              className="rounded-2xl bg-[#eef5e1] p-4 text-sm italic leading-6 text-[#34442d]"
+              className="rounded-2xl bg-ceef5e1 p-4 text-sm italic leading-6 text-c34442d"
             >
-              <span className="block text-xs font-bold not-italic uppercase text-[#66804f]">
+              <span className="block text-xs font-bold not-italic uppercase text-c66804f">
                 {lot.title}
               </span>
               “{text}”
@@ -194,7 +194,7 @@ async function PromotionHighlights({ locale, category, businessType }: SectionPr
 
 function HighlightsSkeleton({ t }: { t: Translate }) {
   return (
-    <div className="mb-8 h-24 animate-pulse rounded-2xl bg-[#eef5e1]" role="status">
+    <div className="mb-8 h-24 animate-pulse rounded-2xl bg-ceef5e1" role="status">
       <span className="sr-only">{t("marketHighlightsLoading")}</span>
     </div>
   );
