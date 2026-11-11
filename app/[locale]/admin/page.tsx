@@ -80,7 +80,7 @@ export default function AdminPage() {
             ))}
           </ul>
         ) : (
-          <p className="text-sm text-stone-500">{shops.length ? t.noShops : t.noShops}</p>
+          <p className="text-sm text-stone-500">{t.noShops}</p>
         )}
       </section>
     </main>

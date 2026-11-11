@@ -8,8 +8,9 @@ const messages = Object.fromEntries(
   ]),
 );
 const failures = [];
-const englishKeys = Object.keys(messages.en).sort();
-const spanishKeys = Object.keys(messages.es).sort();
+const compareText = (left, right) => left.localeCompare(right);
+const englishKeys = Object.keys(messages.en).sort(compareText);
+const spanishKeys = Object.keys(messages.es).sort(compareText);
 
 for (const key of englishKeys) {
   if (typeof messages.en[key] !== "string" || typeof messages.es[key] !== "string") {
@@ -18,7 +19,7 @@ for (const key of englishKeys) {
   }
 
   const placeholders = (message) =>
-    [...message.matchAll(/\{([A-Za-z][A-Za-z0-9_]*)\}/g)].map((match) => match[1]).sort();
+    [...message.matchAll(/\{([A-Za-z][A-Za-z0-9_]*)\}/g)].map((match) => match[1]).sort(compareText);
   if (
     JSON.stringify(placeholders(messages.en[key])) !==
     JSON.stringify(placeholders(messages.es[key]))

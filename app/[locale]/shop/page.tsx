@@ -720,7 +720,7 @@ function ShopForm({
             className="w-full rounded-xl border border-cdfe4da bg-cfbfcf9 px-4 py-3 text-sm"
           />
         </div>
-        <button className="w-full rounded-xl bg-c203a2c px-4 py-3 text-sm font-bold text-white transition hover:bg-c2e513d">
+        <button type="submit" className="w-full rounded-xl bg-c203a2c px-4 py-3 text-sm font-bold text-white transition hover:bg-c2e513d">
           {t.shopSubmit}
         </button>
       </form>
@@ -792,7 +792,7 @@ function ProductForm({
           aria-label={t.productDescription}
           className="w-full rounded-xl border border-cdfe4da bg-cfbfcf9 px-4 py-3 text-sm"
         />
-        <button className="w-full rounded-xl border border-ccfdac6 bg-cf4f7f1 px-4 py-3 text-sm font-bold text-c30442a transition hover:bg-ce9f1e1">
+        <button type="submit" className="w-full rounded-xl border border-ccfdac6 bg-cf4f7f1 px-4 py-3 text-sm font-bold text-c30442a transition hover:bg-ce9f1e1">
           {t.productSubmit}
         </button>
       </form>

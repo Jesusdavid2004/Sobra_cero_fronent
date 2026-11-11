@@ -89,7 +89,7 @@ function AppStateProvider({ children }: { children: ReactNode }) {
       else setAuthError(false);
     });
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js", { updateViaCache: "none" });
+      void navigator.serviceWorker.register("/sw.js", { updateViaCache: "none" });
     }
     let mounted = true;
     api
