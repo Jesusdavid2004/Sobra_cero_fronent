@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
+import { Rubik } from "next/font/google";
 import { notFound } from "next/navigation";
 
 import AppProviders from "@/providers/AppProviders";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
+
+const rubik = Rubik({ subsets: ["latin"], display: "swap", variable: "--font-rubik" });
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -34,7 +37,7 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning className={rubik.variable}>
       <body>
         <NextIntlClientProvider messages={messages}>
           <AppProviders>{children}</AppProviders>

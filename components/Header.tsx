@@ -36,13 +36,15 @@ export default function Header() {
   return (
     <header className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-6 py-6">
       <Link href="/" className="leading-tight">
-        <p className="text-2xl font-black tracking-tight text-emerald-600">{t.title}</p>
+        <p className="text-2xl font-black tracking-tight text-[#30442a]">
+          <span className="rounded-lg bg-[#c7e49d] px-2 py-0.5">{t.title}</span>
+        </p>
         <p className="text-xs uppercase tracking-[0.2em] text-stone-500">{t.eyebrow}</p>
       </Link>
       <nav className="flex flex-wrap items-center gap-2" aria-label={t.mainNavigation}>
         <Link
           href="/"
-          className={`rounded-full border px-3 py-2 text-sm ${pathname === "/" ? "border-emerald-500 text-emerald-600" : ""}`}
+          className={`rounded-full border px-3 py-2 text-sm ${pathname === "/" ? "border-[#30442a] bg-[#30442a] text-white" : ""}`}
         >
           {t.navHome}
         </Link>
@@ -52,13 +54,13 @@ export default function Header() {
               <>
                 <Link
                   href="/shop"
-                  className={`rounded-full border px-3 py-2 text-sm ${pathname === "/shop" ? "border-emerald-500 text-emerald-600" : ""}`}
+                  className={`rounded-full border px-3 py-2 text-sm ${pathname === "/shop" ? "border-[#30442a] bg-[#30442a] text-white" : ""}`}
                 >
                   {t.shop}
                 </Link>
                 <Link
                   href="/lots/new"
-                  className={`rounded-full border px-3 py-2 text-sm ${pathname === "/lots/new" ? "border-emerald-500 text-emerald-600" : ""}`}
+                  className={`rounded-full border px-3 py-2 text-sm ${pathname === "/lots/new" ? "border-[#30442a] bg-[#30442a] text-white" : ""}`}
                 >
                   {t.newLot}
                 </Link>
