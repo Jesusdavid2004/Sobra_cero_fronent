@@ -90,6 +90,59 @@ const TimelineEventSchema = z.object({
 
 export type TimelineEvent = z.infer<typeof TimelineEventSchema>;
 
+const DISCOVERY_REASONS = [
+  "too_far",
+  "closes_before_arrival",
+  "outside_pickup_window",
+  "over_budget",
+  "not_enough_stock",
+  "category_mismatch",
+] as const;
+
+const AssessmentSchema = z.object({
+  lot_id: z.number().int(),
+  shop_id: z.number().int(),
+  title: z.string(),
+  category: z.string(),
+  available_quantity: z.number().int(),
+  unit_price_cents: z.number().int(),
+  closes_at: z.string(),
+  distance_km: z.number(),
+  travel_minutes: z.number().int(),
+  slack_minutes: z.number().int(),
+  reasons: z.array(z.enum(DISCOVERY_REASONS)),
+});
+
+const DiscoverySchema = z.object({
+  approximate: z.literal(true),
+  feasible: z.array(AssessmentSchema),
+  excluded: z.array(AssessmentSchema),
+  nearest_unreachable: AssessmentSchema.nullable(),
+});
+
+const DiscoveryIntentSchema = z.object({
+  budget: z.number().nullable(),
+  pickup_from: z.string().nullable(),
+  pickup_until: z.string().nullable(),
+  quantity: z.number().int().nullable(),
+  category: z.string().nullable(),
+});
+
+export type DiscoveryReason = (typeof DISCOVERY_REASONS)[number];
+export type LotAssessment = z.infer<typeof AssessmentSchema>;
+export type DiscoveryResult = z.infer<typeof DiscoverySchema>;
+export type DiscoveryIntent = z.infer<typeof DiscoveryIntentSchema>;
+export type DiscoveryParams = {
+  latitude: number;
+  longitude: number;
+  windowStart: Date;
+  windowEnd: Date;
+  radiusKm: number;
+  quantity: number;
+  budgetCents?: number;
+  category?: string;
+};
+
 export type User = {
   id: number;
   email: string;
@@ -330,6 +383,26 @@ export const api = {
           demand_uplift_percent: parameters.demandUpliftPercent,
           donation_units: parameters.donationUnits,
         }),
+      }),
+    ),
+  discoverLots: async (params: DiscoveryParams) => {
+    const query = new URLSearchParams({
+      latitude: String(params.latitude),
+      longitude: String(params.longitude),
+      window_start: params.windowStart.toISOString(),
+      window_end: params.windowEnd.toISOString(),
+      radius_km: String(params.radiusKm),
+      quantity: String(params.quantity),
+    });
+    if (params.budgetCents !== undefined) query.set("budget_cents", String(params.budgetCents));
+    if (params.category) query.set("category", params.category);
+    return DiscoverySchema.parse(await request<unknown>(`/discovery/lots?${query.toString()}`));
+  },
+  parseDiscoveryRequest: async (text: string, language: string) =>
+    DiscoveryIntentSchema.parse(
+      await request<unknown>(`/discovery/parse?language=${language}`, {
+        method: "POST",
+        body: JSON.stringify({ text }),
       }),
     ),
   lotTimeline: async (lotId: number) =>
