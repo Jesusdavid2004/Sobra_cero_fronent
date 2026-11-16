@@ -618,5 +618,6 @@
   "scannerRejectBusiness": "Rechazar",
   "scannerDemoTag": "Datos de demostración",
   "scannerNotAffiliated": "Encontrado en una fuente, no afiliado",
-  "scannerOnlyPending": "Solo pendientes de validación"
+  "scannerOnlyPending": "Solo pendientes de validación",
+  "mapIncludeDemo": "Incluir datos de demostración (no son negocios reales)"
 }
