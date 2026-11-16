@@ -85,9 +85,17 @@ export default function Header() {
               </>
             ) : null}
             {user?.is_admin ? (
-              <Link href="/admin" className="rounded-full border px-3 py-2 text-sm">
-                {t.admin}
-              </Link>
+              <>
+                <Link href="/admin" className="rounded-full border px-3 py-2 text-sm">
+                  {t.admin}
+                </Link>
+                <Link
+                  href="/admin/scanner"
+                  className={`rounded-full border px-3 py-2 text-sm ${pathname === "/admin/scanner" ? "border-c30442a bg-c30442a text-white" : ""}`}
+                >
+                  {t.navScanner}
+                </Link>
+              </>
             ) : null}
             <button onClick={handleLogout} className="rounded-full border px-3 py-2 text-sm">
               {t.logout}
