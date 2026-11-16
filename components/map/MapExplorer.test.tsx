@@ -127,6 +127,23 @@ describe("MapExplorer", () => {
     vi.useRealTimers();
   });
 
+  it("asks for demonstration data only when the visitor opts in", async () => {
+    apiMock.mapPlaces.mockResolvedValue(result([]));
+    renderExplorer();
+    await screen.findByText("No place matches these filters.");
+    expect(apiMock.mapPlaces).toHaveBeenLastCalledWith(
+      expect.objectContaining({ includeDemo: false }),
+    );
+
+    fireEvent.click(screen.getByLabelText("Include demonstration data (not real businesses)"));
+
+    await waitFor(() =>
+      expect(apiMock.mapPlaces).toHaveBeenLastCalledWith(
+        expect.objectContaining({ includeDemo: true }),
+      ),
+    );
+  });
+
   it("offers a retry when the places cannot be loaded", async () => {
     apiMock.mapPlaces.mockRejectedValueOnce(new Error("down")).mockResolvedValueOnce(result([]));
     renderExplorer();

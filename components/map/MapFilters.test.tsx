@@ -54,6 +54,18 @@ describe("MapFilters", () => {
     );
   });
 
+  it("offers demonstration data as an opt-in that is off by default", () => {
+    const onChange = renderFilters();
+    const box = screen.getByLabelText(
+      "Include demonstration data (not real businesses)",
+    ) as HTMLInputElement;
+
+    expect(box.checked).toBe(false);
+    fireEvent.click(box);
+
+    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ includeDemo: true }));
+  });
+
   it("reports the text typed, the offers-only switch and the opportunities overlay", () => {
     const onChange = renderFilters();
 

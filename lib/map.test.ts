@@ -57,6 +57,12 @@ describe("filters", () => {
     expect(toggleCategory(once, "bakery").categories).toEqual([]);
   });
 
+  it("keeps demonstration data out unless it is asked for", () => {
+    expect(DEFAULT_FILTERS.includeDemo).toBe(false);
+    expect(toQuery(DEFAULT_FILTERS).includeDemo).toBe(false);
+    expect(toQuery({ ...DEFAULT_FILTERS, includeDemo: true }).includeDemo).toBe(true);
+  });
+
   it("builds the request parameters and trims the text", () => {
     expect(toQuery({ ...DEFAULT_FILTERS, text: "  pan " }).text).toBe("pan");
     expect(toQuery({ ...DEFAULT_FILTERS, onlyWithOffers: true }).onlyWithOffers).toBe(true);
