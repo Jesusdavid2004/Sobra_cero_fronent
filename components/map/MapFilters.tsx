@@ -59,6 +59,14 @@ export default function MapFilters({ filters, t, onChange }: Props) {
             />
             {t.mapShowOpportunities}
           </label>
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={filters.includeDemo}
+              onChange={(event) => onChange({ ...filters, includeDemo: event.target.checked })}
+            />
+            {t.mapIncludeDemo}
+          </label>
         </div>
       </fieldset>
 

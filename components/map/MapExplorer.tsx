@@ -55,10 +55,11 @@ export default function MapExplorer({ t, locale }: Props) {
     return () => clearTimeout(timer);
   }, [filters.text]);
 
-  const { layers, categories, onlyWithOffers } = filters;
+  const { layers, categories, onlyWithOffers, includeDemo } = filters;
   const query = useMemo(
-    () => toQuery({ ...DEFAULT_FILTERS, layers, categories, onlyWithOffers, text: typed }),
-    [layers, categories, onlyWithOffers, typed],
+    () =>
+      toQuery({ ...DEFAULT_FILTERS, layers, categories, onlyWithOffers, includeDemo, text: typed }),
+    [layers, categories, onlyWithOffers, includeDemo, typed],
   );
 
   useEffect(() => {
@@ -89,10 +90,10 @@ export default function MapExplorer({ t, locale }: Props) {
   useEffect(() => {
     if (!filters.showOpportunities) return;
     api
-      .mapOpportunities()
+      .mapOpportunities(includeDemo)
       .then(setCells)
       .catch(() => setCells([]));
-  }, [filters.showOpportunities]);
+  }, [filters.showOpportunities, includeDemo]);
 
   const places = useMemo(() => result?.places ?? [], [result]);
   const selected = places.find((place) => place.place_id === selectedId) ?? null;
