@@ -97,6 +97,30 @@ test("publishes a lot, reserves it, and confirms pickup across locales", async (
       await route.fulfill({ json: { id: 42, status: reservationStatus, quantity: 1 } });
     } else if (pathname === "/api/v1/lots/1") {
       await route.fulfill({ json: lot });
+    } else if (pathname === "/api/v1/shops/5/diagnosis") {
+      await route.fulfill({
+        json: {
+          facts: {
+            active_lots: 1,
+            units_available: 10,
+            lots_expiring_soon: 0,
+            units_expiring_soon: 0,
+            units_closing_soon: 0,
+            picked_up_units: 0,
+            delivered_donation_units: 0,
+            cancelled_units: 0,
+            wasted_units: 0,
+            pending_pickup_units: 0,
+          },
+          alerts: [],
+          limitations: ["forecast_not_included"],
+          data_used: ["lots"],
+          narrative: null,
+          narrative_status: "unavailable",
+        },
+      });
+    } else if (pathname === "/api/v1/shops/5/waste") {
+      await route.fulfill({ json: [] });
     } else {
       await route.fulfill({
         status: 404,
@@ -156,6 +180,6 @@ test("publishes a lot, reserves it, and confirms pickup across locales", async (
   await page.getByLabel("Pickup code").fill("AB12CD34");
   await page.getByRole("button", { name: "Confirm pickup" }).click();
 
-  await expect(page.getByRole("status")).toContainText("Pickup confirmed");
+  await expect(page.getByRole("status").filter({ hasText: "Pickup confirmed" })).toBeVisible();
   expect(reservationStatus).toBe("picked_up");
 });
