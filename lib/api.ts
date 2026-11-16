@@ -1,5 +1,11 @@
 import { z } from "zod";
 
+import {
+  DiagnosisSchema,
+  WasteEntrySchema,
+  WasteRecordedSchema,
+  type WasteInput,
+} from "@/lib/inventory-schemas";
 import { CellSchema, GeocodeResultSchema, PlacesSchema, PromotionSchema } from "@/lib/map-schemas";
 import {
   CollectedProductSchema,
@@ -615,6 +621,19 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ status }),
     }),
+  shopDiagnosis: async (shopId: number, language: string) =>
+    DiagnosisSchema.parse(
+      await request<unknown>(`/shops/${shopId}/diagnosis?language=${language}`),
+    ),
+  recordWaste: async (lotId: number, input: WasteInput) =>
+    WasteRecordedSchema.parse(
+      await request<unknown>(`/lots/${lotId}/waste`, {
+        method: "POST",
+        body: JSON.stringify(input),
+      }),
+    ),
+  shopWaste: async (shopId: number) =>
+    WasteEntrySchema.array().parse(await request<unknown>(`/shops/${shopId}/waste`)),
   lotTimeline: async (lotId: number) =>
     TimelineEventSchema.array().parse(await request<unknown>(`/lots/${lotId}/timeline`)),
   shopImpact: async (shopId: number) =>
