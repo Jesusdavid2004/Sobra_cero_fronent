@@ -484,5 +484,17 @@
   "mapCardLocation": "Ubicación",
   "mapCardClose": "Cerrar detalles",
   "mapCardAttribution": "Datos del mapa: {attribution}",
-  "mapCardOpenSource": "Abrir el registro de la fuente"
+  "mapCardOpenSource": "Abrir el registro de la fuente",
+  "mapOpportunitiesTitle": "Dónde se concentra la actividad",
+  "mapOpportunitiesNote": "Conteos de registros verificables por zona (cerca de 1 km). No estima desperdicio ni demanda.",
+  "mapOpportunitiesEmpty": "Ninguna zona tiene registros todavía.",
+  "mapOpportunityCell": "{shops} comercios, {offers} ofertas, {receivers} receptores, {found} encontrados en fuentes públicas",
+  "mapOpportunityInvite": "Hay negocios encontrados aquí y ninguno afiliado todavía: un lugar para invitar.",
+  "mapPromotionsTitle": "Promociones públicas",
+  "mapPromotionsNote": "Precios publicados por catálogos públicos en los últimos días. Una promoción no es un excedente y no dice nada del vencimiento ni de las existencias.",
+  "mapPromotionsEmpty": "No se recolectaron promociones recientes.",
+  "mapPromotionOff": "{percent}% de descuento",
+  "mapPromotionFrom": "De {source}",
+  "mapPromotionSeen": "Visto el {date}",
+  "mapPromotionOpen": "Abrir la página"
 }

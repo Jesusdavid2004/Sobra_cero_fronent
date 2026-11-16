@@ -484,5 +484,17 @@
   "mapCardLocation": "Location",
   "mapCardClose": "Close details",
   "mapCardAttribution": "Map data: {attribution}",
-  "mapCardOpenSource": "Open the source record"
+  "mapCardOpenSource": "Open the source record",
+  "mapOpportunitiesTitle": "Where activity is concentrated",
+  "mapOpportunitiesNote": "Counts of verifiable records per area (about 1 km). It does not estimate waste or demand.",
+  "mapOpportunitiesEmpty": "No area has records yet.",
+  "mapOpportunityCell": "{shops} shops, {offers} offers, {receivers} receivers, {found} found in public sources",
+  "mapOpportunityInvite": "Businesses found here and none affiliated yet: a place to invite.",
+  "mapPromotionsTitle": "Public promotions",
+  "mapPromotionsNote": "Prices published by public catalogs in the last days. A promotion is not a surplus and says nothing about expiry or stock.",
+  "mapPromotionsEmpty": "No recent promotions were collected.",
+  "mapPromotionOff": "{percent}% off",
+  "mapPromotionFrom": "From {source}",
+  "mapPromotionSeen": "Seen {date}",
+  "mapPromotionOpen": "Open the page"
 }
