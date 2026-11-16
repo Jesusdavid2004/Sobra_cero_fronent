@@ -49,6 +49,12 @@ export default function Header() {
           {t.navHome}
         </Link>
         <Link
+          href="/map"
+          className={`rounded-full border px-3 py-2 text-sm ${pathname === "/map" ? "border-c30442a bg-c30442a text-white" : ""}`}
+        >
+          {t.navMap}
+        </Link>
+        <Link
           href="/discover"
           className={`rounded-full border px-3 py-2 text-sm ${pathname === "/discover" ? "border-c30442a bg-c30442a text-white" : ""}`}
         >
