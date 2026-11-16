@@ -1,5 +1,18 @@
 import { z } from "zod";
 
+import { CellSchema, GeocodeResultSchema, PlacesSchema, PromotionSchema } from "@/lib/map-schemas";
+import {
+  CollectedProductSchema,
+  DiscoveredBusinessSchema,
+  ExecutionSchema,
+  PricePointSchema,
+  RecordSchema,
+  RunSchema,
+  SourceSchema,
+  SummarySchema,
+  type SourceInput,
+} from "@/lib/scanner-schemas";
+
 const ExpiryScanSuggestionSchema = z.object({
   id: z.number().int(),
   printed_date: z.string().max(80).nullable(),
@@ -270,11 +283,19 @@ export type WasteRisk = {
 };
 export type SalesHistoryCreated = { created: number; existing: number };
 
+export type MapPlacesParams = {
+  layers: string[];
+  categories: string[];
+  text: string;
+  onlyWithOffers: boolean;
+};
+
 export class ApiError extends Error {
   constructor(
     message: string,
     readonly status: number,
     readonly code?: string,
+    readonly reason?: string,
   ) {
     super(message);
     this.name = "ApiError";
@@ -359,7 +380,12 @@ async function request<T>(
   if (!response.ok) {
     const body = await response.json().catch(() => ({}));
     const detail = Array.isArray(body.detail) ? body.detail[0]?.msg : body.detail;
-    throw new ApiError(detail ?? `Request failed (${response.status})`, response.status, body.code);
+    throw new ApiError(
+      detail ?? `Request failed (${response.status})`,
+      response.status,
+      body.code,
+      body.details?.reason,
+    );
   }
   if (response.status === 204) return undefined as T;
   return response.json() as Promise<T>;
@@ -505,6 +531,86 @@ export const api = {
     DonationOfferSchema.parse(
       await request<unknown>(`/donation-offers/${offerId}/delivered`, { method: "POST" }),
     ),
+  mapPlaces: async (params: MapPlacesParams) => {
+    const query = new URLSearchParams();
+    for (const layer of params.layers) query.append("layer", layer);
+    for (const category of params.categories) query.append("category", category);
+    if (params.text) query.set("q", params.text);
+    if (params.onlyWithOffers) query.set("only_with_offers", "true");
+    return PlacesSchema.parse(await request<unknown>(`/map/places?${query.toString()}`));
+  },
+  mapOpportunities: async () =>
+    CellSchema.array().parse(await request<unknown>("/map/opportunities")),
+  mapPromotions: async (limit = 20) =>
+    PromotionSchema.array().parse(await request<unknown>(`/map/promotions?limit=${limit}`)),
+  geocode: async (text: string) =>
+    GeocodeResultSchema.array().parse(
+      await request<unknown>(`/geo/search?q=${encodeURIComponent(text)}`),
+    ),
+  scannerSummary: async () => SummarySchema.parse(await request<unknown>("/admin/scanner/summary")),
+  scannerSources: async () =>
+    SourceSchema.array().parse(await request<unknown>("/admin/scanner/sources")),
+  registerSource: async (input: SourceInput) =>
+    SourceSchema.parse(
+      await request<unknown>("/admin/scanner/sources", {
+        method: "POST",
+        body: JSON.stringify(input),
+      }),
+    ),
+  reviewSourceTerms: async (key: string, note: string, licenseNote: string) =>
+    SourceSchema.parse(
+      await request<unknown>(`/admin/scanner/sources/${key}/terms-review`, {
+        method: "POST",
+        body: JSON.stringify({ note, license_note: licenseNote }),
+      }),
+    ),
+  setSourceEnabled: async (key: string, enabled: boolean) =>
+    SourceSchema.parse(
+      await request<unknown>(`/admin/scanner/sources/${key}/enabled`, {
+        method: "POST",
+        body: JSON.stringify({ enabled }),
+      }),
+    ),
+  setSourceSchedule: async (key: string, minutes: number | null) =>
+    SourceSchema.parse(
+      await request<unknown>(`/admin/scanner/sources/${key}/schedule`, {
+        method: "PUT",
+        body: JSON.stringify({ minutes }),
+      }),
+    ),
+  runSource: async (key: string) =>
+    RunSchema.parse(
+      await request<unknown>(`/admin/scanner/sources/${key}/run`, { method: "POST" }),
+    ),
+  scannerExecutions: async (source?: string) =>
+    ExecutionSchema.array().parse(
+      await request<unknown>(
+        `/admin/scanner/executions${source ? `?source=${encodeURIComponent(source)}` : ""}`,
+      ),
+    ),
+  scannerRecords: async (executionId: number) =>
+    RecordSchema.array().parse(
+      await request<unknown>(`/admin/scanner/executions/${executionId}/records`),
+    ),
+  scannerProducts: async (promotionsOnly: boolean) =>
+    CollectedProductSchema.array().parse(
+      await request<unknown>(`/admin/scanner/products?promotions_only=${promotionsOnly}`),
+    ),
+  scannerPriceHistory: async (productId: number) =>
+    PricePointSchema.array().parse(
+      await request<unknown>(`/admin/scanner/products/${productId}/history`),
+    ),
+  scannerBusinesses: async (verification?: string) =>
+    DiscoveredBusinessSchema.array().parse(
+      await request<unknown>(
+        `/admin/scanner/businesses${verification ? `?verification=${verification}` : ""}`,
+      ),
+    ),
+  verifyBusiness: async (businessId: number, status: "unverified" | "verified" | "rejected") =>
+    request<void>(`/admin/scanner/businesses/${businessId}/verification`, {
+      method: "POST",
+      body: JSON.stringify({ status }),
+    }),
   lotTimeline: async (lotId: number) =>
     TimelineEventSchema.array().parse(await request<unknown>(`/lots/${lotId}/timeline`)),
   shopImpact: async (shopId: number) =>
