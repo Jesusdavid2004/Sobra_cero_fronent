@@ -84,6 +84,15 @@ describe("ProductsTable", () => {
     expect(apiMock.scannerPriceHistory).toHaveBeenCalledWith(4);
   });
 
+  it("draws a single dot when the price has only been seen once", async () => {
+    apiMock.scannerPriceHistory.mockResolvedValue([history[1]]);
+    render(<ProductsTable products={[product()]} t={messages} locale="en" />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Show price history" }));
+
+    expect(await screen.findByTestId("single-price-dot")).toBeTruthy();
+  });
+
   it("opens the source page safely", () => {
     render(<ProductsTable products={[product()]} t={messages} locale="en" />);
 
