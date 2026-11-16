@@ -50,13 +50,23 @@ export default function PriceHistory({ productId, t, locale }: Props) {
         viewBox={`-4 -4 ${CHART_WIDTH + 8} ${CHART_HEIGHT + 8}`}
         className="mt-2 h-14 w-full max-w-xs"
       >
-        <polyline
-          points={sparkline(points, CHART_WIDTH, CHART_HEIGHT)}
-          fill="none"
-          stroke="#30442a"
-          strokeWidth="2"
-          strokeLinejoin="round"
-        />
+        {points.length === 1 ? (
+          <circle
+            cx={CHART_WIDTH / 2}
+            cy={CHART_HEIGHT / 2}
+            r="4"
+            fill="#30442a"
+            data-testid="single-price-dot"
+          />
+        ) : (
+          <polyline
+            points={sparkline(points, CHART_WIDTH, CHART_HEIGHT)}
+            fill="none"
+            stroke="#30442a"
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+        )}
       </svg>
       <ol className="mt-2 grid gap-1 text-xs">
         {points.map((point) => (
