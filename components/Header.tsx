@@ -3,22 +3,11 @@
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useState } from "react";
 
+import ThemeToggle from "@/components/ThemeToggle";
 import { useApp } from "@/providers/AppProviders";
 
 export default function Header() {
-  const {
-    t,
-    lang,
-    setLang,
-    theme,
-    themePreference,
-    toggleTheme,
-    token,
-    authReady,
-    authError,
-    user,
-    logout,
-  } = useApp();
+  const { t, lang, setLang, token, authReady, authError, user, logout } = useApp();
   const router = useRouter();
   const pathname = usePathname();
   const [logoutError, setLogoutError] = useState(false);
@@ -106,21 +95,7 @@ export default function Header() {
             {t.login}
           </Link>
         ) : null}
-        <button
-          aria-label={t.themeLabel}
-          title={t.themeMode.replace(
-            "{mode}",
-            themePreference === "system"
-              ? t.themeSystem
-              : themePreference === "dark"
-                ? t.themeDark
-                : t.themeLight,
-          )}
-          onClick={toggleTheme}
-          className="rounded-full border px-3 py-2 text-sm"
-        >
-          {theme === "dark" ? "☀" : "☾"}
-        </button>
+        <ThemeToggle />
         <button
           aria-label={`${t.changeLanguage}: ${t.language}`}
           onClick={() => setLang(lang === "en" ? "es" : "en")}
