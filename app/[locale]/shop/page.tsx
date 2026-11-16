@@ -5,7 +5,9 @@ import { useRouter } from "@/i18n/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import Header from "@/components/Header";
+import DiagnosisPanel from "@/components/diagnosis/DiagnosisPanel";
 import ImpactPanel from "@/components/ImpactPanel";
+import WastePanel from "@/components/inventory/WastePanel";
 import PickupScanner from "@/components/pickup/PickupScanner";
 import RescuePlanPanel from "@/components/RescuePlanPanel";
 import { ApiError, api, type Product, type Shop, type WasteRisk } from "@/lib/api";
@@ -492,11 +494,30 @@ export default function ShopPage() {
                 </div>
 
                 {selectedShop ? (
+                  <DiagnosisPanel
+                    shopId={selectedShop.id}
+                    revision={impactRevision}
+                    t={t}
+                    locale={lang}
+                  />
+                ) : null}
+
+                {selectedShop ? (
                   <ImpactPanel
                     shopId={selectedShop.id}
                     revision={impactRevision}
                     t={t}
                     locale={lang}
+                  />
+                ) : null}
+
+                {selectedShop ? (
+                  <WastePanel
+                    shopId={selectedShop.id}
+                    lots={risk.map((item) => ({ lotId: item.lot_id, name: item.product_name }))}
+                    t={t}
+                    locale={lang}
+                    onRecorded={() => setImpactRevision((current) => current + 1)}
                   />
                 ) : null}
 
