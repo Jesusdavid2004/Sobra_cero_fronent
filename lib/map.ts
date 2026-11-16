@@ -44,6 +44,7 @@ export type MapFilters = {
   text: string;
   onlyWithOffers: boolean;
   showOpportunities: boolean;
+  includeDemo: boolean;
 };
 
 export const DEFAULT_FILTERS: MapFilters = {
@@ -52,6 +53,7 @@ export const DEFAULT_FILTERS: MapFilters = {
   text: "",
   onlyWithOffers: false,
   showOpportunities: false,
+  includeDemo: false,
 };
 
 function toggle<T>(items: T[], item: T): T[] {
@@ -72,6 +74,7 @@ export function toQuery(filters: MapFilters): MapPlacesParams {
     categories: filters.categories,
     text: filters.text.trim(),
     onlyWithOffers: filters.onlyWithOffers,
+    includeDemo: filters.includeDemo,
   };
 }
 

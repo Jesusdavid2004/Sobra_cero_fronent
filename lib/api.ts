@@ -288,6 +288,7 @@ export type MapPlacesParams = {
   categories: string[];
   text: string;
   onlyWithOffers: boolean;
+  includeDemo?: boolean;
 };
 
 export class ApiError extends Error {
@@ -537,10 +538,13 @@ export const api = {
     for (const category of params.categories) query.append("category", category);
     if (params.text) query.set("q", params.text);
     if (params.onlyWithOffers) query.set("only_with_offers", "true");
+    if (params.includeDemo) query.set("include_demo", "true");
     return PlacesSchema.parse(await request<unknown>(`/map/places?${query.toString()}`));
   },
-  mapOpportunities: async () =>
-    CellSchema.array().parse(await request<unknown>("/map/opportunities")),
+  mapOpportunities: async (includeDemo = false) =>
+    CellSchema.array().parse(
+      await request<unknown>(`/map/opportunities?include_demo=${includeDemo}`),
+    ),
   mapPromotions: async (limit = 20) =>
     PromotionSchema.array().parse(await request<unknown>(`/map/promotions?limit=${limit}`)),
   geocode: async (text: string) =>
