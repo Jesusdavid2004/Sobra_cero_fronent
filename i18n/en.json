@@ -675,5 +675,7 @@
   "wasteErrorGeneric": "The waste could not be recorded. Please try again.",
   "wasteListTitle": "Waste you recorded",
   "wasteEmpty": "No waste recorded yet.",
-  "wasteEntryLine": "{quantity} units, {reason}"
+  "wasteEntryLine": "{quantity} units, {reason}",
+  "demoCatalogTitle": "Demonstration catalog",
+  "demoCatalogNote": "These products are invented. This page exists only so the Scanner can be demonstrated end to end on our own site. None of these prices is real, and none is a surplus or a promotion from any shop."
 }

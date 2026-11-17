@@ -675,5 +675,7 @@
   "wasteErrorGeneric": "No se pudo registrar el desperdicio. Inténtalo de nuevo.",
   "wasteListTitle": "Desperdicio que registraste",
   "wasteEmpty": "Todavía no hay desperdicio registrado.",
-  "wasteEntryLine": "{quantity} unidades, {reason}"
+  "wasteEntryLine": "{quantity} unidades, {reason}",
+  "demoCatalogTitle": "Catálogo de demostración",
+  "demoCatalogNote": "Estos productos son inventados. Esta página existe solo para poder demostrar el Scanner de punta a punta en nuestro propio sitio. Ningún precio es real, y ninguno es un excedente ni una promoción de un comercio."
 }
